@@ -44,9 +44,9 @@
 					</form>
 				</div>
 				<div class="col-md-3">
-					<a href="{% url 'vote' %}" class="btn-lg btn-default">Vote</a>
+					<a href="{% url 'vote' %}" class="btn-lg btn-default">Vote</a>&nbsp;
 					{% if day and month and year %}
-						<a href="{% url 'dashboard_dated' year month day %}" class="btn-lg btn-default"><i class="icon-refresh"></i></a>
+						<a href="{% url 'dashboard_dated' year month day %}" class="btn-lg btn-default"><i class="icon-refresh"></i></a>&nbsp;
 					{% endif %}
 					<a href="{% url 'dashboard' %}" class="btn-lg btn-default"><i class="icon-home"></i></a>
 				</div>
@@ -76,24 +76,22 @@
 		</div>
 		<div class="row">
 			<div class="col-md-12">
-				{% spaceless %}
-					{% if day and month and year %}
-						<h1 class="text-center">Since {{ day }} / {{ month }} / {{year}}</h1>
-					{% else %}
-						<h1 class="text-center">Lastests</h1>
+				{% if day and month and year %}
+					<h1 class="text-center">Since {{ day }} / {{ month }} / {{year}}</h1>
+				{% else %}
+					<h1 class="text-center">Lastests</h1>
+				{% endif %}
+				{% for vote in votes %}
+					{% if Vote.GREAT == vote.mood %}
+						<span class="text-success vote-icon"><i class="icon-smile">&nbsp;</i></span>
+					{% elif Vote.OK == vote.mood %}
+						<span class="text-warning vote-icon"><i class="icon-meh">&nbsp;</i></span>
+					{% elif Vote.BAD == vote.mood %}
+						<span class="text-danger vote-icon"><i class="icon-frown">&nbsp;</i></span>
 					{% endif %}
-					{% for vote in votes %}
-						{% if Vote.GREAT == vote.mood %}
-							<span class="text-success vote-icon"><i class="icon-smile">&nbsp;</i></span>
-						{% elif Vote.OK == vote.mood %}
-							<span class="text-warning vote-icon"><i class="icon-meh">&nbsp;</i></span>
-						{% elif Vote.BAD == vote.mood %}
-							<span class="text-danger vote-icon"><i class="icon-frown">&nbsp;</i></span>
-						{% endif %}
-					{% empty %}
-						<div class="col-md-12 alert alert-info text-center">No vote so far <i class="icon-smile"></i>.</div>
-					{% endfor %}
-				{% endspaceless %}
+				{% empty %}
+					<div class="col-md-12 alert alert-info text-center">No vote so far <i class="icon-smile"></i>.</div>
+				{% endfor %}
 			</div>
 		</div>
 	</div>

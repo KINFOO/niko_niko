@@ -70,7 +70,7 @@ After a `$ python manage.py runserver`, you will able to visit `http://localhost
 
 __Note__: If it does not work, ensure your `virtualenv` is activated with: `$ source bin/activate`.
 
-if you want fill it, try;
+If you want fill it, try:
 ```sh
 $ python manage.py loaddata data/sample.json
 ```
