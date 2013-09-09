@@ -1,13 +1,13 @@
 from django.db import models
 
 class Vote(models.Model):
-    HAPPY = 'h'
+    BAD   = 'b'
+    GREAT = 'g'
     OK    = 'o'
-    SAD   = 's'
     MOOD  = (
-        (HAPPY, 'Happy'),
+        (BAD,   'Sad'),
+        (GREAT, 'Great'),
         (OK,    'OK'),
-        (SAD,   'Sad'),
     )
     ip = models.CharField(max_length=15)
     mood = models.CharField(max_length=1,

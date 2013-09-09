@@ -7,6 +7,8 @@ admin.autodiscover()
 urlpatterns = patterns('',
     # Examples:
     url(r'^$', 'niko.views.dashboard', name='dashboard'),
+    url(r'^(?P<year>\d+)/(?P<month>\d+)/(?P<day>\d+)$',
+        'niko.views.dashboard', name='dashboard_dated'),
     url(r'^vote$', 'niko.views.vote', name='vote'),
     url(r'^save/(?P<mood>\w+)$', 'niko.views.save', name='save'),
     # url(r'^niko_niko/', include('niko_niko.foo.urls')),
