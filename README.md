@@ -28,7 +28,6 @@ Enter your `virtualenv`:
 $ source bin/activate
 ```
 
-
 Use it to install what is needed:
 ```sh
 $ pip install -r requirements
@@ -70,3 +69,8 @@ Run
 After a `$ python manage.py runserver`, you will able to visit `http://localhost:8000/`.
 
 __Note__: If it does not work, ensure your `virtualenv` is activated with: `$ source bin/activate`.
+
+if you want fill it, try;
+```sh
+$ python manage.py loaddata data/sample.json
+```
