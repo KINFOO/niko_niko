@@ -4,4 +4,3 @@ lib/
 local/
 db.sq3
 *.pyc
-niko_niko/settings.py
