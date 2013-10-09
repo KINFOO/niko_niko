@@ -4,7 +4,8 @@ Niko-niko's Changelog
 0.2
 ---
 
- * Default `settings.py`
+ * Default `settings.py`.
+ * Adding polls.
 
 0.1
 ---

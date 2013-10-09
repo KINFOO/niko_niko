@@ -22,9 +22,13 @@
 				{% for poll in polls %}
 					<tr>
 						<td>
-							<a href="{% url 'dashboard' poll.slug %}" title="{{ poll.name|escape }}">{{ poll.name }}</a>
+							<a href="{% url 'poll' poll.slug %}" title="{{ poll.name|escape }}">{{ poll.name|title }}</a>
 						</td>
-						<td class="text-right">{{ poll.pub_date|date:"SHORT_DATETIME_FORMAT" }}</td>
+						<td class="text-right">
+							<a href="{% url 'vote' poll.slug %}">Vote</a>
+							<span>&nbsp;</span>
+							<a href="{% url 'poll' poll.slug %}">Results</a>
+							<span>&nbsp;</span>{{ poll.pub_date|date:"SHORT_DATETIME_FORMAT" }}</td>
 					</tr>
 				{% empty %}
 					<tr>
