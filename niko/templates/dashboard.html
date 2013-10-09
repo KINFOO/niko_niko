@@ -46,9 +46,9 @@
 				<div class="col-md-3">
 					<a href="{% url 'vote' %}" class="btn-lg btn-default">Vote</a>&nbsp;
 					{% if day and month and year %}
-						<a href="{% url 'dashboard_dated' year month day %}" class="btn-lg btn-default"><i class="icon-refresh"></i></a>&nbsp;
+						<a href="{% url 'dashboard_dated' poll.slug year month day %}" class="btn-lg btn-default"><i class="icon-refresh"></i></a>&nbsp;
 					{% endif %}
-					<a href="{% url 'dashboard' %}" class="btn-lg btn-default"><i class="icon-home"></i></a>
+					<a href="{% url 'dashboard' poll.slug %}" class="btn-lg btn-default"><i class="icon-home"></i></a>
 				</div>
 			</div>
 		</div>
@@ -107,7 +107,7 @@
 				if ( ! day || ! month || ! year ){
 					alert('Please specify a date');
 				}else{
-					var url = 'http://{{hostname}}{% url 'dashboard' %}';
+					var url = 'http://{{hostname}}{% url 'dashboard' poll.slug %}';
 					url = url + year +"/"+ month +"/"+ day;
 					window.location.replace(url);
 				}

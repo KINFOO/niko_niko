@@ -4,16 +4,26 @@ from django.shortcuts import redirect, render
 
 from datetime import date, timedelta
 
-from niko.models import Vote
+from niko.models import Poll, Vote
 
-def dashboard(request, year=None, month=None, day=None, error=None, success=None):
-	
+def dashboard(request, slug, year=None, month=None, day=None, error=None, success=None):
+
 	context = {
 		'error'   : error,
 		'hostname': request.get_host(),
 		'success' : success,
 		'Vote'    : Vote
 	}
+
+	# Find related poll
+	try:
+		poll = Poll.objects.get(slug = slug)
+		context['poll'] = poll
+	except DoesNotExist:
+		no_poll = 'No poll for {}'.format(slug.title())
+		context['error'] = error + no_poll if error  else no_poll
+		return render(request, 'dashboard.html', context)
+
 	votes = None
 	if day and month and year:
 		givendate = date(int(year), int(month), int(day))
@@ -39,6 +49,10 @@ def dashboard(request, year=None, month=None, day=None, error=None, success=None
 			context[varname] = 0
 
 	return render(request, 'dashboard.html', context)
+
+def polls(request):
+	polls = Poll.objects.all().order_by('-pub_date')
+	return render(request, 'polls.html', { 'polls' : polls } )
 
 def save(request, mood):
 
