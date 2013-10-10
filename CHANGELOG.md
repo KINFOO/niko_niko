@@ -6,6 +6,7 @@ Niko-niko's Changelog
 
  * Default `settings.py`.
  * Adding polls.
+ * Adding graph for polls.
 
 0.1
 ---

@@ -8,7 +8,7 @@ from datetime import date, timedelta
 from niko.models import Poll, Vote
 
 def poll(request, slug, year=None, month=None, day=None, error=None, success=None):
-
+	"""Show details of a specific poll."""
 	context = {
 		'error'   : error,
 		'hostname': request.get_host(),
@@ -40,18 +40,24 @@ def poll(request, slug, year=None, month=None, day=None, error=None, success=Non
 	
 	# Compute average mood
 	votes_count = votes.count()
+	context['votes_count'] = votes_count
 	votes_kinds = { 'bads': Vote.BAD , 'oks' : Vote.OK,
-		'greats' : Vote.GREAT
-	}
+		'greats' : Vote.GREAT }
 	if votes_count > 0:
 		for varname, votetype in votes_kinds.iteritems():
 			# Compute average safely
-			context[varname] = votes.filter( mood = votetype ).count()
-			if context[varname] > 0:
-				context[varname] = (context[varname] / votes_count) * 100
+			count_key = varname + "_count"
+			percentage_key = varname + "_percentage"
+			context[count_key] = votes.filter( mood = votetype ).count()
+			if context[count_key] > 0:
+				context[percentage_key] = 100 * \
+					(context[count_key] / votes_count)
+			else:
+				context[percentage_key] = 0
 	else:
 		for varname, _ in votes_kinds.iteritems():
-			context[varname] = 0
+			context[varname + "_count"] = 0
+			context[varname + "_percentage"] = 0
 
 	return render(request, 'poll.html', context)
 
@@ -60,7 +66,7 @@ def polls(request):
 	return render(request, 'polls.html', { 'polls' : polls } )
 
 def save(request, slug, mood):
-
+	"""Saves a vote to database."""
 	# Find related poll
 	context = { 'Vote' : Vote }
 	try:

@@ -65,13 +65,15 @@
 		{% endif %}
 		<div class="row">
 			<div class="moods col-md-4 text-center">
-				<p class="text-danger"><i class="icon-frown"> {{ bads|floatformat:1 }}%</i></p>
+				<p class="text-danger"><i class="icon-frown"> {{ bads_percentage|floatformat:1 }}%</i></p>
+				<p class="text-warning"><i class="icon-meh"> {{ oks_percentage|floatformat:1 }}%</i></p>
+				<p class="text-success"><i class="icon-smile"> {{ greats_percentage|floatformat:1 }}%</i></p>
 			</div>
 			<div class="moods col-md-4 text-center">
-				<p class="text-warning"><i class="icon-meh"> {{ oks|floatformat:1 }}%</i></p>
+				<canvas id="bars" width="400" height="300"></canvas>
 			</div>
 			<div class="moods col-md-4 text-center">
-				<p class="text-success"><i class="icon-smile"> {{ greats|floatformat:1 }}%</i></p>
+				<canvas id="doughnut" width="400" height="300"></canvas>
 			</div>
 		</div>
 		<div class="row">
@@ -79,7 +81,7 @@
 				{% if day and month and year %}
 					<h1 class="text-center">Since {{ day }} / {{ month }} / {{year}}</h1>
 				{% else %}
-					<h1 class="text-center">Lastests</h1>
+					<h1 class="text-center">{{ votes_count }} vote{{ votes_count|pluralize }}</h1>
 				{% endif %}
 				{% for vote in votes %}
 					{% if Vote.GREAT == vote.mood %}
@@ -113,7 +115,31 @@
 				}
 			});
 		});
-    </script>
+	</script>
+	<!-- We can use it: it is MIT. -->
+	<script src="http://www.chartjs.org/docs/Chart.js"></script>
+	<script type="text/javascript">
+		// Bar graph
+		var barsctx = document.getElementById("bars").getContext("2d");
+		var BarChart = new Chart(barsctx).Bar({
+			labels : ["Bad","OK","Good"],
+			datasets : [
+				{
+					fillColor : "rgba(220,220,220,0.5)",
+					strokeColor : "rgba(220,220,220,1)",
+					data : [{{ bads_count }}, {{ oks_count }}, {{ greats_count }}]
+				}
+			]
+		});
+
+		// Doughnut graph
+		var doughnutctx = document.getElementById("doughnut").getContext("2d");
+		new Chart(doughnutctx).Doughnut([
+			{ color: "#b94a48", value: {{ bads_percentage }} },
+			{ color: "#c09853", value: {{ oks_percentage }} },
+			{ color: "#468847", value: {{ greats_percentage }} }
+		]);
+	</script>
 {% endspaceless %} 
 </body>
 </html>
