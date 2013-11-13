@@ -1,6 +1,11 @@
 Niko-niko's Changelog
 =====================
 
+0.3
+---
+
+ * Project is PyDev ready
+
 0.2
 ---
 
