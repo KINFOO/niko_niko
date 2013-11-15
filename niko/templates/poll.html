@@ -119,18 +119,6 @@
 	<!-- We can use it: it is MIT. -->
 	<script src="http://www.chartjs.org/docs/Chart.js"></script>
 	<script type="text/javascript">
-		// Bar graph
-		var barsctx = document.getElementById("bars").getContext("2d");
-		var BarChart = new Chart(barsctx).Bar({
-			labels : ["Bad","OK","Great"],
-			datasets : [
-				{
-					fillColor : "rgba(220,220,220,0.5)",
-					strokeColor : "rgba(220,220,220,1)",
-					data : [{{ bads_count }}, {{ oks_count }}, {{ greats_count }}]
-				}
-			]
-		});
 
 		// Doughnut graph
 		var doughnutctx = document.getElementById("doughnut").getContext("2d");
@@ -139,6 +127,40 @@
 			{ color: "#c09853", value: {{ oks_percentage }} },
 			{ color: "#468847", value: {{ greats_percentage }} }
 		]);
+
+		// Color mapping
+		var colormapping = {
+			greats: "70, 136, 71",
+			oks:    "192, 152, 83",
+			bads:   "185, 74, 72"
+		};
+
+		// Bar graph
+		var labels = [
+		{% for date in linechart.labels %}
+			"{{date}}",
+		{% endfor %}
+		];
+		{% for varname, values in linechart.values.items %}
+			var {{varname}} = [
+			{% for value in values %}
+				 {{ value }},
+			{% endfor %}
+			];
+		{% endfor %}
+		var barsctx = document.getElementById("bars").getContext("2d");
+		var BarChart = new Chart(barsctx).Bar({
+			labels : labels,
+			datasets : [
+				{% for varname, values in linechart.values.items %}
+					{
+						fillColor   : "rgba("+colormapping["{{varname}}"]+",0.5)",
+						strokeColor : "rgba("+colormapping["{{varname}}"]+",1)",
+						data : {{varname}}
+					},
+				{% endfor %}
+			]
+		});
 	</script>
 {% endspaceless %} 
 </body>

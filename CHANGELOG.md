@@ -5,6 +5,7 @@ Niko-niko's Changelog
 ---
 
  * Project is PyDev ready
+ * In poll details, a bar graph showing the mood evolution over time.
 
 0.2
 ---
