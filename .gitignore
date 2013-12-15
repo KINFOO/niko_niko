@@ -2,5 +2,7 @@ bin/
 include/
 lib/
 local/
+niko_niko/data/*
+settings_local.py
 db.sq3
 *.pyc

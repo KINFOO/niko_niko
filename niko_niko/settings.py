@@ -1,7 +1,12 @@
 # Django settings for niko_niko project.
 
+import os
+
+BASE_DIR = os.path.abspath(os.path.dirname(__file__))                           
+
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
+
 
 ADMINS = (
     ('Kevin KIN-FOO', 'ken@cap.com')
@@ -12,7 +17,7 @@ MANAGERS = ADMINS
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
-        'NAME': '/path/to/niko_niko/db.sq3',    # Or path to database file if using sqlite3.
+        'NAME': BASE_DIR+'/data/db.sq3',    # Or path to database file if using sqlite3.
         # The following settings are not used with sqlite3:
         'USER': '',
         'PASSWORD': '',
@@ -155,3 +160,8 @@ LOGGING = {
         },
     }
 }
+
+settings_local_file = os.path.join(BASE_DIR, 'settings_local.py')               
+if os.path.exists(settings_local_file):                                         
+    execfile(settings_local_file)                                               
+
