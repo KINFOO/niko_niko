@@ -104,7 +104,7 @@ def save(request, slug, mood):
             messages.warning(request, "%s already voted today." % (format(currentip)))
         else:
             Vote.objects.create(ip = currentip, mood = mood,
-                pub_date = today, poll_id = a_poll.id)
+                poll_id = a_poll.id)
             messages.success(request, 'Your vote have been saved.')
     return poll(request, slug)
 
