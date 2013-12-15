@@ -11,6 +11,13 @@ class Poll(models.Model):
         return self.name
 
 class Vote(models.Model):
+
+    # TODO: I would go for an int here instead of a string. This is more
+    # efficient, and it is not bringing more difficulty
+    # BAD = 0
+    # GREAT = 1
+    # OK = 2
+
     BAD   = 'b'
     GREAT = 'g'
     OK    = 'o'
@@ -20,7 +27,7 @@ class Vote(models.Model):
         (OK,    'OK'),
     )
     ip = models.CharField(max_length=15)
-    mood = models.CharField(max_length=1,
-        choices=MOOD, default= OK)
+    mood = models.CharField(max_length=1, choices=MOOD, default= OK)
     poll = models.ForeignKey( Poll )
     pub_date = models.DateTimeField('date published', auto_now_add=True)
+
