@@ -1,3 +1,4 @@
+from django.contrib import messages
 from django.core.exceptions import ObjectDoesNotExist
 from django.db.models import Max, Min
 from django.shortcuts import render, get_object_or_404
@@ -6,27 +7,16 @@ import datetime
 
 from niko.models import Poll, Vote
 
-def poll(request, slug, year=None, month=None, day=None, error=None, success=None):
+def poll(request, slug, year=None, month=None, day=None):
     """Show details of a specific poll."""
     
     poll = get_object_or_404(Poll, slug=slug)
 
     context = {
-        'error'   : error,
         'hostname': request.get_host(),
-        'success' : success,
         'Vote'    : Vote,
         'poll'    : poll,
     }
-
-    # Find related poll
-    #try:
-    #	poll = Poll.objects.get(slug = slug)
-    #	context['poll'] = poll
-    #except ObjectDoesNotExist:
-    #	no_poll = 'No poll for {}'.format(slug.title())
-    #	context['error'] = error + no_poll if error  else no_poll
-    #	return render(request, 'poll.html', context)
 
     votes = None
     if day and month and year:
@@ -95,43 +85,34 @@ def polls(request):
 
 def save(request, slug, mood):
     """Saves a vote to database."""
+
+    a_poll = get_object_or_404(Poll, slug = slug)
+
     # Find related poll
     context = { 'Vote' : Vote }
-    try:
-        a_poll = Poll.objects.get(slug = slug)
-        context['poll'] = a_poll
-    except ObjectDoesNotExist:
-        context['error'] = 'No poll for {}'.format(slug.title())
-        return render(request, 'vote.html',context)
 
     # TODO: Create object with current date in database
     today = datetime.date.today()
-    error = None
-    success = None
     if not mood in [Vote.BAD, Vote.OK, Vote.GREAT]:
-        error = 'I do not know this kind of vote.'
+        messages.warning(request, 'I do not know this kind of vote.')
     else:
         currentip = get_client_ip(request)
         yesterday = today - datetime.timedelta( days = 1 )
         today_s_votes = Vote.objects.filter(poll__id=a_poll.id).filter(
             ip = currentip,pub_date__gt = yesterday).count() 
         if today_s_votes > 0:
-            error = '{} already voted today.'.format(currentip)
+            messages.warning(request, "%s already voted today." % (format(currentip)))
         else:
             Vote.objects.create(ip = currentip, mood = mood,
                 pub_date = today, poll_id = a_poll.id)
-            success = 'Vote saved.'
-    return poll(request, slug, error = error, success = success)
+            messages.success(request, 'Your vote have been saved.')
+    return poll(request, slug)
 
 def vote(request, slug):
-    context = {'Vote': Vote}
 
     poll = get_object_or_404(Poll, slug=slug)
-    try:
-        context['poll'] = Poll.objects.get(slug = slug)
-    except ObjectDoesNotExist:
-        context['error'] = 'No poll for {}'.format(slug.title())
-    return render(request, 'vote.html', context)
+
+    return render(request, 'vote.html', {'poll': poll, 'Vote': Vote})
 
 # Utilities
 def get_client_ip(request):

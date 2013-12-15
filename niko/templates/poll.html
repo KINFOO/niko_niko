@@ -54,15 +54,14 @@
 		</div>
 	</div>
 	<div class="container">
-		{% if error or success %}
-			<div class="row">
-				{% if error %}
-					<div class="col-md-12 alert alert-danger text-center">{{ error }}</div>
-				{% elif success %}
-					<div class="col-md-12 alert alert-success text-center">{{ success }}</div>
-				{% endif %}
-			</div>
-		{% endif %}
+{% if messages %}                                                               
+    {% for message in messages %}                                               
+    <div class="alert alert-{{ message.tags }}">                                
+     <button type="button" class="close" data-dismiss="alert">&times;</button>  
+    {{ message }}                                                               
+    </div>                                                                      
+    {% endfor %}                                                                
+{% endif %}   
 		<div class="row">
 			<div class="moods col-md-4 text-center">
 				<p class="text-danger"><i class="icon-frown"> {{ bads_percentage|floatformat:1 }}%</i></p>
@@ -99,7 +98,7 @@
 	</div>
 	<!-- Yes, I want it to load fast. -->
 	<script src="http://code.jquery.com/jquery-2.0.3.min.js"></script>
-	<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+	<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
 	<script type="text/javascript">
 		$(document).ready(function() {
 			$("#withDate").click(function(){
