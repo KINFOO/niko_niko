@@ -1,7 +1,4 @@
-Django==1.5.2
-SQLite3Database==0.2.0
+Django < 1.7
 Unidecode==0.04.14
-argparse==1.2.1
 django-autoslug==1.7.1
 python-slugify==0.0.6
-wsgiref==0.1.2
