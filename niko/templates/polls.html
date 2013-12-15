@@ -1,14 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>Available polls</title>
-  <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet">
-  <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
-  <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.min.css" rel="stylesheet">
-</head>
+{% extends "base.html" %}                                                       
+                                                                                
+{% block content %}
+
 {% spaceless %}
-<body>
 	<div class="jumbotron">
 		<div class="container">
 			<h1>Polls. <small>Pick yours.</small></h1>
@@ -44,3 +38,4 @@
 </html>
 {% endspaceless %}
 
+{% endblock %}                                                                  
