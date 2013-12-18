@@ -3,8 +3,61 @@
 {% block title %}{{ poll.name|title }}{% endblock %}
 
 {% block headers %}
-{% load static %}
-
+{% load staticfiles %}
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
+<script src="http://code.jquery.com/jquery-2.0.3.min.js"></script>
+<link href="{% static 'bower_components/bootstrap-datepicker/css/datepicker3.css' %}"/>
+<script src="{% static 'bower_components/bootstrap-datepicker/js/bootstrap-datepicker.js' %}"></script>
+<script src="{% static 'bower_components/bootstrap-datepicker/js/locales/bootstrap-datepicker.kr.js' %}"></script>
+<script src="{% static 'bower_components/bootstrap-datepicker/js/locales/bootstrap-datepicker.cs.js' %}"></script>
+<script src="{% static 'bower_components/bootstrap-datepicker/js/locales/bootstrap-datepicker.sw.js' %}"></script>
+<script src="{% static 'bower_components/bootstrap-datepicker/js/locales/bootstrap-datepicker.vi.js' %}"></script>
+<script src="{% static 'bower_components/bootstrap-datepicker/js/locales/bootstrap-datepicker.da.js' %}"></script>
+<script src="{% static 'bower_components/bootstrap-datepicker/js/locales/bootstrap-datepicker.ja.js' %}"></script>
+<script src="{% static 'bower_components/bootstrap-datepicker/js/locales/bootstrap-datepicker.es.js' %}"></script>
+<script src="{% static 'bower_components/bootstrap-datepicker/js/locales/bootstrap-datepicker.tr.js' %}"></script>
+<script src="{% static 'bower_components/bootstrap-datepicker/js/locales/bootstrap-datepicker.it.js' %}"></script>
+<script src="{% static 'bower_components/bootstrap-datepicker/js/locales/bootstrap-datepicker.fr.js' %}"></script>
+<script src="{% static 'bower_components/bootstrap-datepicker/js/locales/bootstrap-datepicker.zh-CN.js' %}"></script>
+<script src="{% static 'bower_components/bootstrap-datepicker/js/locales/bootstrap-datepicker.ru.js' %}"></script>
+<script src="{% static 'bower_components/bootstrap-datepicker/js/locales/bootstrap-datepicker.ca.js' %}"></script>
+<script src="{% static 'bower_components/bootstrap-datepicker/js/locales/bootstrap-datepicker.ms.js' %}"></script>
+<script src="{% static 'bower_components/bootstrap-datepicker/js/locales/bootstrap-datepicker.is.js' %}"></script>
+<script src="{% static 'bower_components/bootstrap-datepicker/js/locales/bootstrap-datepicker.de.js' %}"></script>
+<script src="{% static 'bower_components/bootstrap-datepicker/js/locales/bootstrap-datepicker.ar.js' %}"></script>
+<script src="{% static 'bower_components/bootstrap-datepicker/js/locales/bootstrap-datepicker.lt.js' %}"></script>
+<script src="{% static 'bower_components/bootstrap-datepicker/js/locales/bootstrap-datepicker.pt.js' %}"></script>
+<script src="{% static 'bower_components/bootstrap-datepicker/js/locales/bootstrap-datepicker.ka.js' %}"></script>
+<script src="{% static 'bower_components/bootstrap-datepicker/js/locales/bootstrap-datepicker.pt-BR.js' %}"></script>
+<script src="{% static 'bower_components/bootstrap-datepicker/js/locales/bootstrap-datepicker.nl-BE.js' %}"></script>
+<script src="{% static 'bower_components/bootstrap-datepicker/js/locales/bootstrap-datepicker.sk.js' %}"></script>
+<script src="{% static 'bower_components/bootstrap-datepicker/js/locales/bootstrap-datepicker.cy.js' %}"></script>
+<script src="{% static 'bower_components/bootstrap-datepicker/js/locales/bootstrap-datepicker.nb.js' %}"></script>
+<script src="{% static 'bower_components/bootstrap-datepicker/js/locales/bootstrap-datepicker.sv.js' %}"></script>
+<script src="{% static 'bower_components/bootstrap-datepicker/js/locales/bootstrap-datepicker.he.js' %}"></script>
+<script src="{% static 'bower_components/bootstrap-datepicker/js/locales/bootstrap-datepicker.nl.js' %}"></script>
+<script src="{% static 'bower_components/bootstrap-datepicker/js/locales/bootstrap-datepicker.fa.js' %}"></script>
+<script src="{% static 'bower_components/bootstrap-datepicker/js/locales/bootstrap-datepicker.fi.js' %}"></script>
+<script src="{% static 'bower_components/bootstrap-datepicker/js/locales/bootstrap-datepicker.hu.js' %}"></script>
+<script src="{% static 'bower_components/bootstrap-datepicker/js/locales/bootstrap-datepicker.hr.js' %}"></script>
+<script src="{% static 'bower_components/bootstrap-datepicker/js/locales/bootstrap-datepicker.sl.js' %}"></script>
+<script src="{% static 'bower_components/bootstrap-datepicker/js/locales/bootstrap-datepicker.lv.js' %}"></script>
+<script src="{% static 'bower_components/bootstrap-datepicker/js/locales/bootstrap-datepicker.id.js' %}"></script>
+<script src="{% static 'bower_components/bootstrap-datepicker/js/locales/bootstrap-datepicker.kk.js' %}"></script>
+<script src="{% static 'bower_components/bootstrap-datepicker/js/locales/bootstrap-datepicker.no.js' %}"></script>
+<script src="{% static 'bower_components/bootstrap-datepicker/js/locales/bootstrap-datepicker.zh-TW.js' %}"></script>
+<script src="{% static 'bower_components/bootstrap-datepicker/js/locales/bootstrap-datepicker.et.js' %}"></script>
+<script src="{% static 'bower_components/bootstrap-datepicker/js/locales/bootstrap-datepicker.sq.js' %}"></script>
+<script src="{% static 'bower_components/bootstrap-datepicker/js/locales/bootstrap-datepicker.el.js' %}"></script>
+<script src="{% static 'bower_components/bootstrap-datepicker/js/locales/bootstrap-datepicker.bg.js' %}"></script>
+<script src="{% static 'bower_components/bootstrap-datepicker/js/locales/bootstrap-datepicker.mk.js' %}"></script>
+<script src="{% static 'bower_components/bootstrap-datepicker/js/locales/bootstrap-datepicker.th.js' %}"></script>
+<script src="{% static 'bower_components/bootstrap-datepicker/js/locales/bootstrap-datepicker.gl.js' %}"></script>
+<script src="{% static 'bower_components/bootstrap-datepicker/js/locales/bootstrap-datepicker.ro.js' %}"></script>
+<script src="{% static 'bower_components/bootstrap-datepicker/js/locales/bootstrap-datepicker.rs-latin.js' %}"></script>
+<script src="{% static 'bower_components/bootstrap-datepicker/js/locales/bootstrap-datepicker.rs.js' %}"></script>
+<script src="{% static 'bower_components/bootstrap-datepicker/js/locales/bootstrap-datepicker.ua.js' %}"></script>
+<script src="{% static 'bower_components/bootstrap-datepicker/js/locales/bootstrap-datepicker.pl.js' %}"></script>
 {% endblock %}
 
 {% block content %}
@@ -17,21 +70,27 @@
 			</div>
 			<div class="row">
 				<div class="col-md-9 text-right">
-					<form class="form-inline" role="form">
-						<div class="form-group">
-							<label class="sr-only" for="day">Day</label>
-							<input type="text" id="day" class="form-control" placeholder="dd"/>
-						</div>/
-						<div class="form-group">
-							<label class="sr-only" for="month">Month</label>
-							<input type="text" id="month" class="form-control" placeholder="mm"/>
-						</div>/
-						<div class="form-group">
-							<label class="sr-only" for="year">Year</label>
-							<input type="text" id="year" class="form-control" placeholder="yyyy"/>
-						</div>
-						<a class="btn-lg btn-default" id="withDate">Go</a>
-					</form>
+				    <div class="input-daterange" id="datepicker">
+				    <input type="text" class="input-small" name="start" />
+				    <span class="add-on">to</span>
+				    <input type="text" class="input-small" name="end" />
+				    </div>
+				
+<!-- 					<form class="form-inline" role="form"> -->
+<!-- 						<div class="form-group"> -->
+<!-- 							<label class="sr-only" for="day">Day</label> -->
+<!-- 							<input type="text" id="day" class="form-control" placeholder="dd"/> -->
+<!-- 						</div>/ -->
+<!-- 						<div class="form-group"> -->
+<!-- 							<label class="sr-only" for="month">Month</label> -->
+<!-- 							<input type="text" id="month" class="form-control" placeholder="mm"/> -->
+<!-- 						</div>/ -->
+<!-- 						<div class="form-group"> -->
+<!-- 							<label class="sr-only" for="year">Year</label> -->
+<!-- 							<input type="text" id="year" class="form-control" placeholder="yyyy"/> -->
+<!-- 						</div> -->
+<!-- 						<a class="btn-lg btn-default" id="withDate">Go</a> -->
+<!-- 					</form> -->
 				</div>
 				<div class="col-md-3">
 					<a href="{% url 'vote' poll.slug %}" class="btn-lg btn-default">Vote</a>&nbsp;
@@ -51,7 +110,8 @@
     {{ message }}                                                               
     </div>                                                                      
     {% endfor %}                                                                
-{% endif %}   
+{% endif %}
+<div class="input-daterange" id="datepicker">
 		<div class="row">
 			<div class="moods col-md-4 text-center">
 				<p class="text-danger"><i class="icon-frown"> {{ bads_percentage|floatformat:1 }}%</i></p>
@@ -86,25 +146,12 @@
 			</div>
 		</div>
 	</div>
-	<!-- Yes, I want it to load fast. -->
-	<script src="http://code.jquery.com/jquery-2.0.3.min.js"></script>
-	<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
-	<script type="text/javascript">
-		$(document).ready(function() {
-			$("#withDate").click(function(){
-				var day   = $("#day").val();
-				var month = $("#month").val();
-				var year  = $("#year").val();
-				if ( ! day || ! month || ! year ){
-					alert('Please specify a date');
-				}else{
-					var url = 'http://{{hostname}}{% url 'poll' poll.slug %}';
-					url = url + year +"/"+ month +"/"+ day;
-					window.location.replace(url);
-				}
-			});
-		});
-	</script>
+	
+<script type="text/javascript">
+  $('#sandbox-container .input-daterange').datepicker({
+    format: "dd/mm/yyyy"
+  });
+</script>
 	<!-- We can use it: it is MIT. -->
 	<script src="http://www.chartjs.org/docs/Chart.js"></script>
 	<script type="text/javascript">
