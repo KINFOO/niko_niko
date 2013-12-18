@@ -1,6 +1,12 @@
 Niko-niko's Changelog
 =====================
 
+0.4
+---
+
+ * Refactoring: better use of Django.
+ * Adding date picker.
+
 0.3
 ---
 
