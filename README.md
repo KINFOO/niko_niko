@@ -6,34 +6,26 @@ The main idea is to have a web form available for one vote over three smileys in
 Requirements
 ------------
 
-You will need `pip`
+You will need `pip`.
 
 Set up
 ------
 
-Install `virtualenv`:
+You should [install virtualenvwrapper](http://virtualenvwrapper.readthedocs.org/en/latest/install.html). Then set up goes down to:
 
 ```sh
-$ pip install --user virtualenv
+$ mkvirtualenv niko -p /usr/bin/python2.7 -a /w/niko_niko -r requirements -r requirementsDev
+$ workon niko
 ```
+__Note__: Note adjust path used for `mkvirtualenv` to your system.
 
-Create one for current project:
+Now you just need to adjust some settings. At the root of the project run:
+
 ```sh
-$ cd /path/to/niko_niko
-$ virtualenv .
+$ cp niko_niko/settings.py settings_local.py
 ```
 
-Enter your `virtualenv`:
-```sh
-$ source bin/activate
-```
-
-Use it to install what is needed:
-```sh
-$ pip install -r requirements
-```
-
-Edit `niko_niko/settings.py`:
+Edit `settings_local.py`:
 ```python
 # Set yourself as admin
 ADMINS = (
@@ -67,8 +59,6 @@ Run
 ---
 
 After a `$ python manage.py runserver`, you will able to visit `http://localhost:8000/`.
-
-__Note__: If it does not work, ensure your `virtualenv` is activated with: `$ source bin/activate`.
 
 If you want fill it, try:
 ```sh
