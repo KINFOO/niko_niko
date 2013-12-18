@@ -48,11 +48,18 @@ INSTALLED_APPS = (
     # Define the app we are coding
     'niko'
 )
+STATIC_URL = '/static/'
+STATICFILES_DIRS = (
+    BASE_DIR + '/staticresources/',
+)
 ```
-
 Now create database:
 ```sh
 $ python manage.py syncdb
+```
+Gather static files:
+```sh
+$ python manage.py collectstatic
 ```
 
 Run
