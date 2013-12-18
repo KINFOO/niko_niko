@@ -2,11 +2,10 @@
 
 import os
 
-BASE_DIR = os.path.abspath(os.path.dirname(__file__))                           
+BASE_DIR = os.path.abspath(os.path.dirname(__file__))
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
-
 
 ADMINS = (
     ('Kevin KIN-FOO', 'ken@cap.com')
@@ -161,7 +160,6 @@ LOGGING = {
     }
 }
 
-settings_local_file = os.path.join(BASE_DIR, 'settings_local.py')               
-if os.path.exists(settings_local_file):                                         
-    execfile(settings_local_file)                                               
-
+settings_local_file = os.path.join(BASE_DIR, 'settings_local.py')
+if os.path.exists(settings_local_file):
+    execfile(settings_local_file)

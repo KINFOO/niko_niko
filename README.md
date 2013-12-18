@@ -22,10 +22,10 @@ __Note__: Note adjust path used for `mkvirtualenv` to your system.
 Now you just need to adjust some settings. At the root of the project run:
 
 ```sh
-$ cp niko_niko/settings.py settings_local.py
+$ cp niko_niko/settings.py niko_niko/settings_local.py
 ```
 
-Edit `settings_local.py`:
+Edit `niko_niko/settings_local.py`:
 ```python
 # Set yourself as admin
 ADMINS = (
