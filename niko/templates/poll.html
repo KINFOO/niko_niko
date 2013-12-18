@@ -1,12 +1,19 @@
 {% extends "base.html" %}
 
+{% block title %}{{ poll.name|title }}{% endblock %}
+
+{% block headers %}
+{% load static %}
+
+{% endblock %}
+
 {% block content %}
 
 {% spaceless %}
 	<div class="jumbotron">
 		<div class="container">
 			<div class="row">
-				<div class="col-md-12"><h1>{{ poll.name|title }}. <small>Look at its current mood.</small></h1></div>
+				<div class="col-md-12"><h1>{{ poll.name|title }}<small> Look at its current mood.</small></h1></div>
 			</div>
 			<div class="row">
 				<div class="col-md-9 text-right">

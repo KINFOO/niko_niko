@@ -1,6 +1,12 @@
-{% extends "base.html" %}                                                       
-                                                                                
-{% block content %}     
+{% extends "base.html" %}
+
+{% block headers %}
+<style type="text/css">
+  .big{ font-size: 20em; }
+</style>
+{% endblock %}
+
+{% block content %}
 	<div class="jumbotron">
 		<div class="container">
 			<h1>Hi. <small>How do you feel about: <em>{{ poll.name|title }}</em>?</small></h1>
