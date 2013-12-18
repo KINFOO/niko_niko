@@ -14,7 +14,7 @@ Set up
 You should [install virtualenvwrapper](http://virtualenvwrapper.readthedocs.org/en/latest/install.html). Then set up goes down to:
 
 ```sh
-$ mkvirtualenv niko -p /usr/bin/python2.7 -a /w/niko_niko -r requirements -r requirementsDev
+$ mkvirtualenv niko -p /usr/bin/python2.7 -a /w/niko_niko -r devrequirements
 $ workon niko
 ```
 __Note__: Note adjust path used for `mkvirtualenv` to your system.
