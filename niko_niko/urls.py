@@ -21,4 +21,5 @@ urlpatterns = patterns('',
 
     # Enable the admin:
     url(r'^admin/', include(admin.site.urls)),
+# TODO: Get rid of this as soon as datepicker 1.3 is available on CDN
 ) + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

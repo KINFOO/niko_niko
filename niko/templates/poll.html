@@ -3,10 +3,84 @@
 {% block title %}{{ poll.name|title }}{% endblock %}
 
 {% block headers %}
-{% load staticfiles %}
-<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
-<script src="http://code.jquery.com/jquery-2.0.3.min.js"></script>
+{% load staticfiles %}{# TODO: Update this as soon as datepicker 1.3 is available on CDN #}
 <link href="{% static 'bower_components/bootstrap-datepicker/css/datepicker3.css' %}"/>
+{% endblock %}
+
+{% block content %}
+
+{% spaceless %}
+	<div class="jumbotron">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-12"><h1>{{ poll.name|title }}<small> Look at its current mood.</small></h1></div>
+			</div>
+			<div class="row">
+				<div class="col-md-9 text-right">
+				    <div class="input-daterange">
+				    <input type="text" class="input-small"/>
+				    <span class="add-on">to</span>
+				    <input type="text" class="input-small"/>
+				    </div>
+				</div>
+				<div class="col-md-3">
+					<a href="{% url 'vote' poll.slug %}" class="btn-lg btn-default">Vote</a>&nbsp;
+					{% if day and month and year %}
+						<a href="{% url 'poll_dated' poll.slug year month day %}" class="btn-lg btn-default"><i class="icon-refresh"></i></a>&nbsp;
+					{% endif %}
+					<a href="{% url 'polls' %}" class="btn-lg btn-default"><i class="icon-home"></i></a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="container">
+{% if messages %}                                                               
+    {% for message in messages %}                                               
+    <div class="alert alert-{{ message.tags }}">                                
+     <button type="button" class="close" data-dismiss="alert">&times;</button>  
+    {{ message }}                                                               
+    </div>                                                                      
+    {% endfor %}                                                                
+{% endif %}
+		<div class="row">
+			<div class="moods col-md-4 text-center">
+				<p class="text-danger"><i class="icon-frown"> {{ bads_percentage|floatformat:1 }}%</i></p>
+				<p class="text-warning"><i class="icon-meh"> {{ oks_percentage|floatformat:1 }}%</i></p>
+				<p class="text-success"><i class="icon-smile"> {{ greats_percentage|floatformat:1 }}%</i></p>
+			</div>
+			<div class="moods col-md-4 text-center">
+				<canvas id="bars" width="400" height="300"></canvas>
+			</div>
+			<div class="moods col-md-4 text-center">
+				<canvas id="doughnut" width="400" height="300"></canvas>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-12">
+				{% if day and month and year %}
+					<h1 class="text-center">Since {{ day }} / {{ month }} / {{year}}</h1>
+				{% else %}
+					<h1 class="text-center">{{ votes_count }} vote{{ votes_count|pluralize }}</h1>
+				{% endif %}
+				{% for vote in votes %}
+					{% if Vote.GREAT == vote.mood %}
+						<span class="text-success vote-icon"><i class="icon-smile">&nbsp;</i></span>
+					{% elif Vote.OK == vote.mood %}
+						<span class="text-warning vote-icon"><i class="icon-meh">&nbsp;</i></span>
+					{% elif Vote.BAD == vote.mood %}
+						<span class="text-danger vote-icon"><i class="icon-frown">&nbsp;</i></span>
+					{% endif %}
+				{% empty %}
+					<div class="col-md-12 alert alert-info text-center">No vote so far <i class="icon-smile"></i>.</div>
+				{% endfor %}
+			</div>
+		</div>
+	</div>
+<!-- All Javascript at the end, I still want it to be fast -->
+<script src="http://code.jquery.com/jquery-2.0.3.min.js"></script>
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
+{% load staticfiles %}
+<!-- We can use it: it is Apache. -->{# TODO: Update this as soon as datepicker 1.3 is available on CDN #}
 <script src="{% static 'bower_components/bootstrap-datepicker/js/bootstrap-datepicker.js' %}"></script>
 <script src="{% static 'bower_components/bootstrap-datepicker/js/locales/bootstrap-datepicker.kr.js' %}"></script>
 <script src="{% static 'bower_components/bootstrap-datepicker/js/locales/bootstrap-datepicker.cs.js' %}"></script>
@@ -58,100 +132,10 @@
 <script src="{% static 'bower_components/bootstrap-datepicker/js/locales/bootstrap-datepicker.rs.js' %}"></script>
 <script src="{% static 'bower_components/bootstrap-datepicker/js/locales/bootstrap-datepicker.ua.js' %}"></script>
 <script src="{% static 'bower_components/bootstrap-datepicker/js/locales/bootstrap-datepicker.pl.js' %}"></script>
-{% endblock %}
-
-{% block content %}
-
-{% spaceless %}
-	<div class="jumbotron">
-		<div class="container">
-			<div class="row">
-				<div class="col-md-12"><h1>{{ poll.name|title }}<small> Look at its current mood.</small></h1></div>
-			</div>
-			<div class="row">
-				<div class="col-md-9 text-right">
-				    <div class="input-daterange" id="datepicker">
-				    <input type="text" class="input-small" name="start" />
-				    <span class="add-on">to</span>
-				    <input type="text" class="input-small" name="end" />
-				    </div>
-				
-<!-- 					<form class="form-inline" role="form"> -->
-<!-- 						<div class="form-group"> -->
-<!-- 							<label class="sr-only" for="day">Day</label> -->
-<!-- 							<input type="text" id="day" class="form-control" placeholder="dd"/> -->
-<!-- 						</div>/ -->
-<!-- 						<div class="form-group"> -->
-<!-- 							<label class="sr-only" for="month">Month</label> -->
-<!-- 							<input type="text" id="month" class="form-control" placeholder="mm"/> -->
-<!-- 						</div>/ -->
-<!-- 						<div class="form-group"> -->
-<!-- 							<label class="sr-only" for="year">Year</label> -->
-<!-- 							<input type="text" id="year" class="form-control" placeholder="yyyy"/> -->
-<!-- 						</div> -->
-<!-- 						<a class="btn-lg btn-default" id="withDate">Go</a> -->
-<!-- 					</form> -->
-				</div>
-				<div class="col-md-3">
-					<a href="{% url 'vote' poll.slug %}" class="btn-lg btn-default">Vote</a>&nbsp;
-					{% if day and month and year %}
-						<a href="{% url 'poll_dated' poll.slug year month day %}" class="btn-lg btn-default"><i class="icon-refresh"></i></a>&nbsp;
-					{% endif %}
-					<a href="{% url 'polls' %}" class="btn-lg btn-default"><i class="icon-home"></i></a>
-				</div>
-			</div>
-		</div>
-	</div>
-	<div class="container">
-{% if messages %}                                                               
-    {% for message in messages %}                                               
-    <div class="alert alert-{{ message.tags }}">                                
-     <button type="button" class="close" data-dismiss="alert">&times;</button>  
-    {{ message }}                                                               
-    </div>                                                                      
-    {% endfor %}                                                                
-{% endif %}
-<div class="input-daterange" id="datepicker">
-		<div class="row">
-			<div class="moods col-md-4 text-center">
-				<p class="text-danger"><i class="icon-frown"> {{ bads_percentage|floatformat:1 }}%</i></p>
-				<p class="text-warning"><i class="icon-meh"> {{ oks_percentage|floatformat:1 }}%</i></p>
-				<p class="text-success"><i class="icon-smile"> {{ greats_percentage|floatformat:1 }}%</i></p>
-			</div>
-			<div class="moods col-md-4 text-center">
-				<canvas id="bars" width="400" height="300"></canvas>
-			</div>
-			<div class="moods col-md-4 text-center">
-				<canvas id="doughnut" width="400" height="300"></canvas>
-			</div>
-		</div>
-		<div class="row">
-			<div class="col-md-12">
-				{% if day and month and year %}
-					<h1 class="text-center">Since {{ day }} / {{ month }} / {{year}}</h1>
-				{% else %}
-					<h1 class="text-center">{{ votes_count }} vote{{ votes_count|pluralize }}</h1>
-				{% endif %}
-				{% for vote in votes %}
-					{% if Vote.GREAT == vote.mood %}
-						<span class="text-success vote-icon"><i class="icon-smile">&nbsp;</i></span>
-					{% elif Vote.OK == vote.mood %}
-						<span class="text-warning vote-icon"><i class="icon-meh">&nbsp;</i></span>
-					{% elif Vote.BAD == vote.mood %}
-						<span class="text-danger vote-icon"><i class="icon-frown">&nbsp;</i></span>
-					{% endif %}
-				{% empty %}
-					<div class="col-md-12 alert alert-info text-center">No vote so far <i class="icon-smile"></i>.</div>
-				{% endfor %}
-			</div>
-		</div>
-	</div>
-	
 <script type="text/javascript">
-  $('#sandbox-container .input-daterange').datepicker({
-    format: "dd/mm/yyyy"
-  });
+  $('.input-daterange').datepicker({ format: "dd/mm/yyyy" });
 </script>
+
 	<!-- We can use it: it is MIT. -->
 	<script src="http://www.chartjs.org/docs/Chart.js"></script>
 	<script type="text/javascript">
