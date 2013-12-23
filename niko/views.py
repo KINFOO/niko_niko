@@ -1,11 +1,11 @@
 from django.contrib import messages
-from django.core.exceptions import ObjectDoesNotExist
 from django.db.models import Max, Min
 from django.shortcuts import render, get_object_or_404
 
 import datetime
 
 from niko.models import Poll, Vote
+from niko.forms import DateInterval
 
 def poll(request, slug, year=None, month=None, day=None):
     """Show details of a specific poll."""
@@ -18,18 +18,36 @@ def poll(request, slug, year=None, month=None, day=None):
         'poll'    : poll,
     }
 
+    dateform = None
     votes = None
+    if request.method != 'POST':
+        dateform = DateInterval()
+    else:
+        dateform = DateInterval(request.POST)
+        if dateform.is_valid():
+            startdate = dateform.cleaned_data['startdate']
+            votes =  Vote.objects.filter(poll__id=poll.id).filter(
+                pub_date__gte=startdate).order_by('-pub_date')
+            enddate = dateform.cleaned_data['enddate']
+            if enddate:
+                votes = votes.filter(pub_date__lte=enddate).order_by(
+                    '-pub_date')
+        else:
+            for field in dateform:
+                for err in field.errors:
+                    messages.warning(request, '{}: {}'.format(field.label, err))
+    context['dateform'] = dateform
     if day and month and year:
         givendate = datetime.date(int(year), int(month), int(day))
         votes = Vote.objects.filter(poll__id=poll.id).filter(
-            pub_date__gte = givendate).order_by('-pub_date')
-        context['day']   = day
+            pub_date__gte=givendate).order_by('-pub_date')
+        context['day'] = day
         context['month'] = month
-        context['year']  = year
+        context['year'] = year
     else:
         votes = Vote.objects.filter(poll__id=poll.id).order_by('-pub_date')
     context['votes'] = votes
-	
+
     # Compute average mood
     votes_count = votes.count()
     context['votes_count'] = votes_count
@@ -39,7 +57,7 @@ def poll(request, slug, year=None, month=None, day=None):
             # Compute average safely
             count_key = varname + "_count"
             percentage_key = varname + "_percentage"
-            context[count_key] = votes.filter( mood = votetype ).count()
+            context[count_key] = votes.filter(mood=votetype).count()
             if context[count_key] > 0:
                 context[percentage_key] = 100.0 * \
                     (float(context[count_key]) / float(votes_count))
@@ -58,12 +76,12 @@ def poll(request, slug, year=None, month=None, day=None):
     context['linechart'] = {}
     dates = votes.aggregate(Max('pub_date'), Min('pub_date'))
     startdate = dates['pub_date__min']
-    enddate   = dates['pub_date__max']
+    enddate = dates['pub_date__max']
     if startdate == enddate:
         context['linechart']['labels'] = [ startdate ]
         context['linechart']['values'] = {}
         for varname, votetype in votes_kinds.iteritems():
-            context['linechart']['values'][varname]=[votes.filter(mood = votetype).\
+            context['linechart']['values'][varname] = [votes.filter(mood=votetype).\
                 count()]
     else:
         timestep = (enddate - startdate) / 3
@@ -72,24 +90,21 @@ def poll(request, slug, year=None, month=None, day=None):
         context['linechart']['values'] = {}
         for adate in dates:
             for varname, votetype in votes_kinds.iteritems():
-                count =votes.filter(mood=votetype, pub_date__lte=adate).count()
+                count = votes.filter(mood=votetype, pub_date__lte=adate).count()
                 if not varname in context['linechart']['values']:
                     context['linechart']['values'][varname] = []
-                context['linechart']['values'][varname].append( count )
+                context['linechart']['values'][varname].append(count)
 
     return render(request, 'poll.html', context)
 
 def polls(request):
     polls = Poll.objects.all().order_by('-pub_date')
-    return render(request, 'polls.html', { 'polls' : polls } )
+    return render(request, 'polls.html', { 'polls' : polls })
 
 def save(request, slug, mood):
     """Saves a vote to database."""
 
-    a_poll = get_object_or_404(Poll, slug = slug)
-
-    # Find related poll
-    context = { 'Vote' : Vote }
+    a_poll = get_object_or_404(Poll, slug=slug)
 
     # TODO: Create object with current date in database
     today = datetime.date.today()
@@ -97,14 +112,14 @@ def save(request, slug, mood):
         messages.warning(request, 'I do not know this kind of vote.')
     else:
         currentip = get_client_ip(request)
-        yesterday = today - datetime.timedelta( days = 1 )
+        yesterday = today - datetime.timedelta(days=1)
         today_s_votes = Vote.objects.filter(poll__id=a_poll.id).filter(
-            ip = currentip,pub_date__gt = yesterday).count() 
+            ip=currentip, pub_date__gt=yesterday).count()
         if today_s_votes > 0:
             messages.warning(request, "%s already voted today." % (format(currentip)))
         else:
-            Vote.objects.create(ip = currentip, mood = mood,
-                poll_id = a_poll.id)
+            Vote.objects.create(ip=currentip, mood=mood,
+                poll_id=a_poll.id)
             messages.success(request, 'Your vote have been saved.')
     return poll(request, slug)
 

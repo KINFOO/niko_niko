@@ -17,11 +17,12 @@
 			</div>
 			<div class="row">
 				<div class="col-md-9 text-right">
-				    <div class="input-daterange">
-				    <input type="text" class="input-small"/>
-				    <span class="add-on">to</span>
-				    <input type="text" class="input-small"/>
-				    </div>
+					<form action="{% url 'poll' poll.slug %}" method="post">{% csrf_token %}
+						    <input type="text" id="id_startdate" name="startdate" class="input-small" readonly="readonly" placeholder="Start date"/>
+						    <span class="add-on">to</span>
+						    <input type="text" id="id_enddate" name="enddate" class="input-small" readonly="readonly" placeholder="End date"/>
+						    <input type="submit" class="add-on" value="Go" />
+					</form>
 				</div>
 				<div class="col-md-3">
 					<a href="{% url 'vote' poll.slug %}" class="btn-lg btn-default">Vote</a>&nbsp;
@@ -76,7 +77,7 @@
 			</div>
 		</div>
 	</div>
-<!-- All Javascript at the end, I still want it to be fast -->
+<!-- All Javascript at the end, I still want it to load fast -->
 <script src="http://code.jquery.com/jquery-2.0.3.min.js"></script>
 <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
 {% load staticfiles %}
@@ -133,7 +134,8 @@
 <script src="{% static 'bower_components/bootstrap-datepicker/js/locales/bootstrap-datepicker.ua.js' %}"></script>
 <script src="{% static 'bower_components/bootstrap-datepicker/js/locales/bootstrap-datepicker.pl.js' %}"></script>
 <script type="text/javascript">
-  $('.input-daterange').datepicker({ format: "dd/mm/yyyy" });
+  $('#id_startdate').datepicker({ format: 'dd/mm/yyyy' });
+  $('#id_enddate')  .datepicker({ format: 'dd/mm/yyyy' });
 </script>
 
 	<!-- We can use it: it is MIT. -->
