@@ -6,10 +6,20 @@ The main idea is to have a web form available for one vote over three smileys in
 Requirements
 ------------
 
-You will need `pip`.
+You will need `pip` and `bower`*.
+
+_*_ This is temporary.
 
 Set up
 ------
+
+Install all `bower` related components.
+
+```sh
+$ cd staticresources/
+$ bower install
+$ cd -
+```
 
 You should [install virtualenvwrapper](http://virtualenvwrapper.readthedocs.org/en/latest/install.html). Then set up goes down to:
 
@@ -35,7 +45,7 @@ ADMINS = (
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': '/path/to/niko_niko/db.sq3',          # Path as we are using sqlite3.
+        'NAME': '/path/to/niko_niko/data/db.sq3',          # Path as we are using sqlite3.
     }
 }
 # Ensure admin is defined

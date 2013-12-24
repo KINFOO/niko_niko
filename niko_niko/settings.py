@@ -2,7 +2,7 @@
 
 import os
 
-BASE_DIR = os.path.abspath(os.path.dirname(__file__))
+BASE_DIR = os.path.abspath(os.path.dirname(os.path.dirname(__file__)))
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
@@ -69,11 +69,11 @@ STATIC_ROOT = BASE_DIR + '/static'
 
 # URL prefix for static files.
 # Example: "http://example.com/static/", "http://static.example.com/"
-STATIC_URL = 'http://localhost/static/'
+STATIC_URL = BASE_DIR + '/staticresources/'
 
 # Additional locations of static files
 STATICFILES_DIRS = (
-   BASE_DIR + '/staticresources',
+    BASE_DIR + '/staticresources',
 )
 
 # List of finder classes that know how to find static files in
