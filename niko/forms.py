@@ -3,8 +3,11 @@ from django import forms
 class DateInterval(forms.Form):
 
     '''Allow to specify two consecutive dates.'''
-    startdate = forms.DateField(label='Shown votes starting date')
-    enddate   = forms.DateField(label='Shown votes ending date', required=False)
+    dateformats = ['%d/%m/%Y']
+    startdate = forms.DateField(input_formats=dateformats,
+        label='Shown votes starting date')
+    enddate   = forms.DateField(input_formats=dateformats,
+        label='Shown votes ending date', required=False)
 
     def clean(self):
         '''Check if end date is valid.'''

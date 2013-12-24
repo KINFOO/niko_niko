@@ -134,8 +134,9 @@
 <script src="{% static 'bower_components/bootstrap-datepicker/js/locales/bootstrap-datepicker.ua.js' %}"></script>
 <script src="{% static 'bower_components/bootstrap-datepicker/js/locales/bootstrap-datepicker.pl.js' %}"></script>
 <script type="text/javascript">
-  $('#id_startdate').datepicker({ format: 'dd/mm/yyyy' });
-  $('#id_enddate')  .datepicker({ format: 'dd/mm/yyyy' });
+  var format = 'dd/mm/yyyy';
+  $('#id_startdate').datepicker({ format: format });
+  $('#id_enddate')  .datepicker({ format: format });
 </script>
 
 	<!-- We can use it: it is MIT. -->

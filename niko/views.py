@@ -37,15 +37,6 @@ def poll(request, slug, year=None, month=None, day=None):
                 for err in field.errors:
                     messages.warning(request, '{}: {}'.format(field.label, err))
     context['dateform'] = dateform
-    if day and month and year:
-        givendate = datetime.date(int(year), int(month), int(day))
-        votes = Vote.objects.filter(poll__id=poll.id).filter(
-            pub_date__gte=givendate).order_by('-pub_date')
-        context['day'] = day
-        context['month'] = month
-        context['year'] = year
-    else:
-        votes = Vote.objects.filter(poll__id=poll.id).order_by('-pub_date')
     context['votes'] = votes
 
     # Compute average mood
