@@ -145,6 +145,9 @@ def vote(request, slug):
 
     return render(request, 'vote.html', {'poll': poll, 'Vote': Vote})
 
+def handler404(request):
+    return render(request, '404.html')
+
 # Utilities
 def get_client_ip(request):
     x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')

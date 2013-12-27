@@ -6,6 +6,8 @@ from django.conf.urls.static import static
 from django.contrib import admin
 admin.autodiscover()
 
+handler404 = 'niko.views.handler404'
+
 urlpatterns = patterns('',
     url(r'^$', 'niko.views.polls', name='polls'),
     url(r'^polls/$', 'niko.views.polls'),

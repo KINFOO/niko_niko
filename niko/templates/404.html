@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block title %} 404 {%endblock %}
+{% block headers %}
+{% endblock %}
+{% block content %}
+{% spaceless %}
+<div class="jumbotron">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-12"><h1>404 <small>Page not found.</small></h1></div>
+		</div>
+	</div>
+</div>
+<div class="container">
+	<div class="row">
+		<div class="col-md-12 text-center">
+			<a href="{% url 'polls' %}" class="badge" style="font-size:10em"><i class="icon-home"></i></a>
+		</div>
+	</div>
+</div>
+{% endspaceless %}
+{%endblock %}
