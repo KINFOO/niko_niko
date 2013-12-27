@@ -15,8 +15,7 @@ class DateInterval(forms.Form):
         startdate = cleaned_data.get('startdate')
         enddate   = cleaned_data.get('enddate')
         if enddate and (startdate > enddate):
-            del cleaned_data['enddate']
             raise forms.ValidationError(
-                'End date should be more recent than start date.',
+                u'End date should be more recent than start date.',
                 code = 'InvalidDateRange')
         return cleaned_data

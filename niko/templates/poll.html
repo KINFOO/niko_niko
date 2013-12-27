@@ -10,37 +10,49 @@
 {% block content %}
 
 {% spaceless %}
-	<div class="jumbotron">
+	<div class="well">
 		<div class="container">
 			<div class="row">
 				<div class="col-md-12"><h1>{{ poll.name|title }}<small> Look at its current mood.</small></h1></div>
 			</div>
-			<div class="row">
-				<div class="col-md-9 text-right">
-					<form action="{% url 'poll' poll.slug %}" method="post">{% csrf_token %}
-						    <input type="text" id="id_startdate" name="startdate" class="input-small" readonly="readonly" placeholder="Start date"/>
-						    <span class="add-on">to</span>
-						    <input type="text" id="id_enddate" name="enddate" class="input-small" readonly="readonly" placeholder="End date"/>
-						    <input type="submit" class="add-on" value="Go" />
-					</form>
-				</div>
-				<div class="col-md-3">
-					<a href="{% url 'vote' poll.slug %}" class="btn-lg btn-default">Vote</a>&nbsp;
-					{% if day and month and year %}
-						<a href="{% url 'poll_dated' poll.slug year month day %}" class="btn-lg btn-default"><i class="icon-refresh"></i></a>&nbsp;
-					{% endif %}
-					<a href="{% url 'polls' %}" class="btn-lg btn-default"><i class="icon-home"></i></a>
-				</div>
-			</div>
 		</div>
 	</div>
+
+	<nav class="navbar navbar-default" role="navigation">
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#nikonav">
+			</button>
+		</div>
+		<div class="collapse navbar-collapse" id="nikonav">
+			<ul class="nav navbar-nav navbar-right">
+				<li><a href="{% url 'vote' poll.slug %}">Vote</a></li>
+				<li><a href="{% url 'poll' poll.slug %}"><i class="icon-refresh"></i></a></li>
+				<li><a href="{% url 'polls' %}" class="navbar-brand"><i class="icon-home"></i></a></li>
+			</ul>
+			<form action="{% url 'poll' poll.slug %}" method="post" class="navbar-form navbar-center" role="form">{% csrf_token %}
+				<div class="form-group">
+					<label class="sr-only" for="id_startdate">Start date</label>
+					<input value="{{ startdate }}" type="text" id="id_startdate" name="startdate" class="form-control input-small" readonly="readonly" placeholder="Start date"/>
+				</div>
+				to
+				<div class="form-group">
+					<label class="sr-only" for="id_enddate">End date</label>
+					<input value="{{ enddate }}" type="text" id="id_enddate" name="enddate" class="form-control input-small" readonly="readonly" placeholder="End date"/>
+				</div>
+				<input type="submit" class="btn btn-default" value="Go" />
+			</form>
+		</div>
+	</nav>
+
 	<div class="container">
 		{% if messages %}
 		    {% for message in messages %}
-			    <div class="alert alert-{{ message.tags }} alert-dismissable">
-					<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-					{{ message }}
-			    </div>
+				<div class="row">
+					<div class="col-md-12 alert alert-{{ message.tags }} alert-dismissable">
+						<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+						{{ message }}
+					</div>
+				</div>
 		    {% endfor %}
 		{% endif %}
 		<div class="row">
@@ -58,11 +70,14 @@
 		</div>
 		<div class="row">
 			<div class="col-md-12">
-				{% if day and month and year %}
-					<h1 class="text-center">Since {{ day }} / {{ month }} / {{year}}</h1>
-				{% else %}
-					<h1 class="text-center">{{ votes_count }} vote{{ votes_count|pluralize }}</h1>
-				{% endif %}
+				<h1 class="text-center">
+					{{ votes_count }} vote{{ votes_count|pluralize }}
+					{% if startdate and enddate %}
+						<small>between {{ startdate }} and {{ enddate }}</small>
+					{% elif startdate %}
+						<small>since {{ startdate }}</small>
+					{% endif %}
+				</h1>
 				{% for vote in votes %}
 					{% if Vote.GREAT == vote.mood %}
 						<span class="text-success vote-icon"><i class="icon-smile">&nbsp;</i></span>
@@ -175,13 +190,11 @@
 		var BarChart = new Chart(barsctx).Bar({
 			labels : labels,
 			datasets : [
-				{% for varname, values in linechart.values.items %}
-					{
-						fillColor   : "rgba("+colormapping["{{varname}}"]+",0.5)",
-						strokeColor : "rgba("+colormapping["{{varname}}"]+",1)",
-						data : {{varname}}
-					},
-				{% endfor %}
+				{% for varname, values in linechart.values.items %} {
+					fillColor   : "rgba("+colormapping["{{varname}}"]+",0.5)",
+					strokeColor : "rgba("+colormapping["{{varname}}"]+",1)",
+					data : {{varname}}
+				},{% endfor %}
 			]
 		});
 	</script>
