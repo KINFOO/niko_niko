@@ -19,10 +19,9 @@
 							<a href="{% url 'poll' poll.slug %}" title="{{ poll.name|escape }}">{{ poll.name|title }}</a>
 						</td>
 						<td class="text-right">
-							<a href="{% url 'vote' poll.slug %}">Vote</a>
-							<span>&nbsp;</span>
-							<a href="{% url 'poll' poll.slug %}">Results</a>
-							<span>&nbsp;</span>{{ poll.pub_date|date:"SHORT_DATETIME_FORMAT" }}</td>
+							<a class="badge" href="{% url 'vote' poll.slug %}">Vote</a>
+							<span>&nbsp;{{ poll.pub_date|date:"d/m/Y H:i" }}</span>
+						</td>
 					</tr>
 				{% empty %}
 					<tr>
@@ -34,8 +33,6 @@
 		</div>
 	</div>
 	</div>
-</body>
-</html>
 {% endspaceless %}
 
 {% endblock %}                                                                  
