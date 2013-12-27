@@ -6,6 +6,7 @@ Niko-niko's Changelog
 
  * Refactoring: better use of Django.
  * Adding date picker.
+ * Custom `404` page.
 
 0.3
 ---

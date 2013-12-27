@@ -9,7 +9,7 @@
 {% block content %}
 	<div class="jumbotron">
 		<div class="container">
-			<h1>Hi. <small>How do you feel about: <em>{{ poll.name|title }}</em>?</small></h1>
+			<h1>Hi. <small>{{ poll.name|title }}</small></h1>
 			<p class="text-right"><small>Seeking for </small>
 			<a href="{% url 'poll' poll.slug %}" class="btn-lg btn-default">Results</a></p>
 		</div>
