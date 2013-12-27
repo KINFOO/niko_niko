@@ -123,17 +123,16 @@ def save(request, slug, mood):
 
     a_poll = get_object_or_404(Poll, slug=slug)
 
-    # TODO: Create object with current date in database
-    today = datetime.date.today()
     if not mood in [Vote.BAD, Vote.OK, Vote.GREAT]:
         messages.warning(request, 'I do not know this kind of vote.')
     else:
         currentip = get_client_ip(request)
-        yesterday = today - datetime.timedelta(days=1)
+        yesterday = datetime.date.today() - datetime.timedelta(days=1)
         today_s_votes = Vote.objects.filter(poll__id=a_poll.id).filter(
             ip=currentip, pub_date__gt=yesterday).count()
         if today_s_votes > 0:
-            messages.warning(request, "%s already voted today." % (format(currentip)))
+            messages.warning(request, '{} already voted today.'
+                .format(currentip))
         else:
             Vote.objects.create(ip=currentip, mood=mood,
                 poll_id=a_poll.id)

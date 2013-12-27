@@ -30,4 +30,3 @@ class Vote(models.Model):
     mood = models.CharField(max_length=1, choices=MOOD, default= OK)
     poll = models.ForeignKey( Poll )
     pub_date = models.DateTimeField('date published', auto_now_add=True)
-
