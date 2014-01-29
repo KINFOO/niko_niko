@@ -10,11 +10,12 @@ from niko.forms import DateInterval
 # Should match date format used in forms.DateInterval
 DATE_FORMAT = '%d/%m/%Y'
 
+
 def poll(request, slug):
     """Show details of a specific poll."""
-    
+
     poll = get_object_or_404(Poll, slug=slug)
-    context = {'Vote': Vote, 'poll': poll,}
+    context = {'Vote': Vote, 'poll': poll, }
 
     #
     # Selecting votes from a date interval when requested
@@ -32,7 +33,7 @@ def poll(request, slug):
             # Select votes since a date
             startdate = dateform.cleaned_data['startdate']
             context['startdate'] = startdate.strftime(DATE_FORMAT)
-            votes =  Vote.objects.filter(poll__id=poll.id).filter(
+            votes = Vote.objects.filter(poll__id=poll.id).filter(
                 pub_date__gte=startdate).order_by('-pub_date')
 
             # Select votes before a date
@@ -46,7 +47,7 @@ def poll(request, slug):
             for fieldname, errors in dateform.errors.iteritems():
                 for error in errors:
                     if '__all__' == fieldname:
-                        messages.warning(request,error)
+                        messages.warning(request, error)
                     else:
                         messages.warning(request,
                             '{}: {}'.format(fieldname, error))
@@ -60,7 +61,7 @@ def poll(request, slug):
     # Compute average mood
     votes_count = votes.count()
     context['votes_count'] = votes_count
-    votes_kinds = { 'bads': Vote.BAD , 'oks' : Vote.OK, 'greats' : Vote.GREAT }
+    votes_kinds = {'bads': Vote.BAD, 'oks': Vote.OK, 'greats': Vote.GREAT, }
     if votes_count > 0:
         for varname, votetype in votes_kinds.iteritems():
             # Compute average safely
@@ -89,7 +90,7 @@ def poll(request, slug):
 
     # Single vote or all votes at once
     if startdate == enddate:
-        context['linechart']['labels'] = [ startdate ]
+        context['linechart']['labels'] = [startdate]
         context['linechart']['values'] = {}
         for varname, votetype in votes_kinds.iteritems():
             context['linechart']['values'][varname] = [votes.filter(
@@ -113,10 +114,12 @@ def poll(request, slug):
 
     return render(request, 'poll.html', context)
 
+
 def polls(request):
     '''Showing all polls.'''
     polls = Poll.objects.all().order_by('-pub_date')
-    return render(request, 'polls.html', { 'polls' : polls })
+    return render(request, 'polls.html', {'polls': polls})
+
 
 def save(request, slug, mood):
     """Saves a vote to database."""
@@ -139,14 +142,15 @@ def save(request, slug, mood):
             messages.success(request, 'Your vote have been saved.')
     return poll(request, slug)
 
+
 def vote(request, slug):
-
     poll = get_object_or_404(Poll, slug=slug)
-
     return render(request, 'vote.html', {'poll': poll, 'Vote': Vote})
+
 
 def handler404(request):
     return render(request, '404.html')
+
 
 # Utilities
 def get_client_ip(request):

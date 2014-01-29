@@ -3,8 +3,7 @@
 {% block title %}{{ poll.name|title }}{% endblock %}
 
 {% block headers %}
-{% load staticfiles %}{# TODO: Update this as soon as datepicker 1.3 is available on CDN #}
-<link href="{% static 'bower_components/bootstrap-datepicker/css/datepicker3.css' %}"/>
+<link href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/css/datepicker.css"/>
 {% endblock %}
 
 {% block content %}
@@ -96,58 +95,58 @@
 <script src="http://code.jquery.com/jquery-2.0.3.min.js"></script>
 <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
 {% load staticfiles %}
-<!-- We can use it: it is Apache. -->{# TODO: Update this as soon as datepicker 1.3 is available on CDN #}
-<script src="{% static 'bower_components/bootstrap-datepicker/js/bootstrap-datepicker.js' %}"></script>
-<script src="{% static 'bower_components/bootstrap-datepicker/js/locales/bootstrap-datepicker.kr.js' %}"></script>
-<script src="{% static 'bower_components/bootstrap-datepicker/js/locales/bootstrap-datepicker.cs.js' %}"></script>
-<script src="{% static 'bower_components/bootstrap-datepicker/js/locales/bootstrap-datepicker.sw.js' %}"></script>
-<script src="{% static 'bower_components/bootstrap-datepicker/js/locales/bootstrap-datepicker.vi.js' %}"></script>
-<script src="{% static 'bower_components/bootstrap-datepicker/js/locales/bootstrap-datepicker.da.js' %}"></script>
-<script src="{% static 'bower_components/bootstrap-datepicker/js/locales/bootstrap-datepicker.ja.js' %}"></script>
-<script src="{% static 'bower_components/bootstrap-datepicker/js/locales/bootstrap-datepicker.es.js' %}"></script>
-<script src="{% static 'bower_components/bootstrap-datepicker/js/locales/bootstrap-datepicker.tr.js' %}"></script>
-<script src="{% static 'bower_components/bootstrap-datepicker/js/locales/bootstrap-datepicker.it.js' %}"></script>
-<script src="{% static 'bower_components/bootstrap-datepicker/js/locales/bootstrap-datepicker.fr.js' %}"></script>
-<script src="{% static 'bower_components/bootstrap-datepicker/js/locales/bootstrap-datepicker.zh-CN.js' %}"></script>
-<script src="{% static 'bower_components/bootstrap-datepicker/js/locales/bootstrap-datepicker.ru.js' %}"></script>
-<script src="{% static 'bower_components/bootstrap-datepicker/js/locales/bootstrap-datepicker.ca.js' %}"></script>
-<script src="{% static 'bower_components/bootstrap-datepicker/js/locales/bootstrap-datepicker.ms.js' %}"></script>
-<script src="{% static 'bower_components/bootstrap-datepicker/js/locales/bootstrap-datepicker.is.js' %}"></script>
-<script src="{% static 'bower_components/bootstrap-datepicker/js/locales/bootstrap-datepicker.de.js' %}"></script>
-<script src="{% static 'bower_components/bootstrap-datepicker/js/locales/bootstrap-datepicker.ar.js' %}"></script>
-<script src="{% static 'bower_components/bootstrap-datepicker/js/locales/bootstrap-datepicker.lt.js' %}"></script>
-<script src="{% static 'bower_components/bootstrap-datepicker/js/locales/bootstrap-datepicker.pt.js' %}"></script>
-<script src="{% static 'bower_components/bootstrap-datepicker/js/locales/bootstrap-datepicker.ka.js' %}"></script>
-<script src="{% static 'bower_components/bootstrap-datepicker/js/locales/bootstrap-datepicker.pt-BR.js' %}"></script>
-<script src="{% static 'bower_components/bootstrap-datepicker/js/locales/bootstrap-datepicker.nl-BE.js' %}"></script>
-<script src="{% static 'bower_components/bootstrap-datepicker/js/locales/bootstrap-datepicker.sk.js' %}"></script>
-<script src="{% static 'bower_components/bootstrap-datepicker/js/locales/bootstrap-datepicker.cy.js' %}"></script>
-<script src="{% static 'bower_components/bootstrap-datepicker/js/locales/bootstrap-datepicker.nb.js' %}"></script>
-<script src="{% static 'bower_components/bootstrap-datepicker/js/locales/bootstrap-datepicker.sv.js' %}"></script>
-<script src="{% static 'bower_components/bootstrap-datepicker/js/locales/bootstrap-datepicker.he.js' %}"></script>
-<script src="{% static 'bower_components/bootstrap-datepicker/js/locales/bootstrap-datepicker.nl.js' %}"></script>
-<script src="{% static 'bower_components/bootstrap-datepicker/js/locales/bootstrap-datepicker.fa.js' %}"></script>
-<script src="{% static 'bower_components/bootstrap-datepicker/js/locales/bootstrap-datepicker.fi.js' %}"></script>
-<script src="{% static 'bower_components/bootstrap-datepicker/js/locales/bootstrap-datepicker.hu.js' %}"></script>
-<script src="{% static 'bower_components/bootstrap-datepicker/js/locales/bootstrap-datepicker.hr.js' %}"></script>
-<script src="{% static 'bower_components/bootstrap-datepicker/js/locales/bootstrap-datepicker.sl.js' %}"></script>
-<script src="{% static 'bower_components/bootstrap-datepicker/js/locales/bootstrap-datepicker.lv.js' %}"></script>
-<script src="{% static 'bower_components/bootstrap-datepicker/js/locales/bootstrap-datepicker.id.js' %}"></script>
-<script src="{% static 'bower_components/bootstrap-datepicker/js/locales/bootstrap-datepicker.kk.js' %}"></script>
-<script src="{% static 'bower_components/bootstrap-datepicker/js/locales/bootstrap-datepicker.no.js' %}"></script>
-<script src="{% static 'bower_components/bootstrap-datepicker/js/locales/bootstrap-datepicker.zh-TW.js' %}"></script>
-<script src="{% static 'bower_components/bootstrap-datepicker/js/locales/bootstrap-datepicker.et.js' %}"></script>
-<script src="{% static 'bower_components/bootstrap-datepicker/js/locales/bootstrap-datepicker.sq.js' %}"></script>
-<script src="{% static 'bower_components/bootstrap-datepicker/js/locales/bootstrap-datepicker.el.js' %}"></script>
-<script src="{% static 'bower_components/bootstrap-datepicker/js/locales/bootstrap-datepicker.bg.js' %}"></script>
-<script src="{% static 'bower_components/bootstrap-datepicker/js/locales/bootstrap-datepicker.mk.js' %}"></script>
-<script src="{% static 'bower_components/bootstrap-datepicker/js/locales/bootstrap-datepicker.th.js' %}"></script>
-<script src="{% static 'bower_components/bootstrap-datepicker/js/locales/bootstrap-datepicker.gl.js' %}"></script>
-<script src="{% static 'bower_components/bootstrap-datepicker/js/locales/bootstrap-datepicker.ro.js' %}"></script>
-<script src="{% static 'bower_components/bootstrap-datepicker/js/locales/bootstrap-datepicker.rs-latin.js' %}"></script>
-<script src="{% static 'bower_components/bootstrap-datepicker/js/locales/bootstrap-datepicker.rs.js' %}"></script>
-<script src="{% static 'bower_components/bootstrap-datepicker/js/locales/bootstrap-datepicker.ua.js' %}"></script>
-<script src="{% static 'bower_components/bootstrap-datepicker/js/locales/bootstrap-datepicker.pl.js' %}"></script>
+<!-- We can use it: it is Apache. -->
+<script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/bootstrap-datepicker.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/locales/bootstrap-datepicker.kr.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/locales/bootstrap-datepicker.cs.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/locales/bootstrap-datepicker.sw.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/locales/bootstrap-datepicker.vi.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/locales/bootstrap-datepicker.da.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/locales/bootstrap-datepicker.ja.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/locales/bootstrap-datepicker.es.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/locales/bootstrap-datepicker.tr.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/locales/bootstrap-datepicker.it.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/locales/bootstrap-datepicker.fr.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/locales/bootstrap-datepicker.zh-CN.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/locales/bootstrap-datepicker.ru.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/locales/bootstrap-datepicker.ca.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/locales/bootstrap-datepicker.ms.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/locales/bootstrap-datepicker.is.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/locales/bootstrap-datepicker.de.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/locales/bootstrap-datepicker.ar.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/locales/bootstrap-datepicker.lt.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/locales/bootstrap-datepicker.pt.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/locales/bootstrap-datepicker.ka.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/locales/bootstrap-datepicker.pt-BR.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/locales/bootstrap-datepicker.nl-BE.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/locales/bootstrap-datepicker.sk.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/locales/bootstrap-datepicker.cy.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/locales/bootstrap-datepicker.nb.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/locales/bootstrap-datepicker.sv.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/locales/bootstrap-datepicker.he.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/locales/bootstrap-datepicker.nl.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/locales/bootstrap-datepicker.fa.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/locales/bootstrap-datepicker.fi.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/locales/bootstrap-datepicker.hu.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/locales/bootstrap-datepicker.hr.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/locales/bootstrap-datepicker.sl.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/locales/bootstrap-datepicker.lv.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/locales/bootstrap-datepicker.id.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/locales/bootstrap-datepicker.kk.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/locales/bootstrap-datepicker.no.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/locales/bootstrap-datepicker.zh-TW.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/locales/bootstrap-datepicker.et.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/locales/bootstrap-datepicker.sq.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/locales/bootstrap-datepicker.el.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/locales/bootstrap-datepicker.bg.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/locales/bootstrap-datepicker.mk.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/locales/bootstrap-datepicker.th.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/locales/bootstrap-datepicker.gl.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/locales/bootstrap-datepicker.ro.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/locales/bootstrap-datepicker.rs-latin.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/locales/bootstrap-datepicker.rs.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/locales/bootstrap-datepicker.ua.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/locales/bootstrap-datepicker.pl.js"></script>
 <script type="text/javascript">
   var format = 'dd/mm/yyyy';
   $('#id_startdate').datepicker({ format: format });

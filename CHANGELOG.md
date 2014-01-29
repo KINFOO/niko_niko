@@ -1,6 +1,12 @@
 Niko-niko's Changelog
 =====================
 
+0.4.1
+-----
+
+* Removing `staticresource` handling in favor of CDN for
+  `bootstrap-datepicker`.
+
 0.4
 ---
 
