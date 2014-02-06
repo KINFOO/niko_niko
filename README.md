@@ -6,20 +6,12 @@ The main idea is to have a web form available for one vote over three smileys in
 Requirements
 ------------
 
-You will need `pip` and `bower`*.
-
-_*_ This is temporary.
+You will need `pip`.
 
 Set up
 ------
 
-Install all `bower` related components.
-
-```sh
-$ cd staticresources/
-$ bower install
-$ cd -
-```
+### Development
 
 You should [install virtualenvwrapper](http://virtualenvwrapper.readthedocs.org/en/latest/install.html). Then set up goes down to:
 
@@ -27,6 +19,7 @@ You should [install virtualenvwrapper](http://virtualenvwrapper.readthedocs.org/
 $ mkvirtualenv niko -p /usr/bin/python2.7 -a /w/niko_niko -r devrequirements
 $ workon niko
 ```
+
 __Note__: Note adjust path used for `mkvirtualenv` to your system.
 
 Now you just need to adjust some settings. At the root of the project run:
@@ -35,7 +28,31 @@ Now you just need to adjust some settings. At the root of the project run:
 $ cp niko_niko/settings.py niko_niko/settings_local.py
 ```
 
-Edit `niko_niko/settings_local.py`:
+Edit `niko_niko/settings_local.py`, at the end, remove:
+
+```python
+settings_local_file = os.path.join(BASE_DIR, 'settings_local.py')
+if os.path.exists(settings_local_file):
+    execfile(settings_local_file)
+```
+
+### Production
+
+```sh
+$ pip install -r requirements
+```
+Edit `niko_niko/settings.py`, at the end, remove:
+
+```python
+settings_local_file = os.path.join(BASE_DIR, 'settings_local.py')
+if os.path.exists(settings_local_file):
+    execfile(settings_local_file)
+```
+
+### For All
+
+Here are the useful settings:
+
 ```python
 # Set yourself as admin
 ADMINS = (
@@ -45,7 +62,7 @@ ADMINS = (
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': '/path/to/niko_niko/data/db.sq3',          # Path as we are using sqlite3.
+        'NAME': '/path/to/niko_niko/data/db.sq3', # Path, as we are using sqlite3.
     }
 }
 # Ensure admin is defined
@@ -58,18 +75,12 @@ INSTALLED_APPS = (
     # Define the app we are coding
     'niko'
 )
-STATIC_URL = '/static/'
-STATICFILES_DIRS = (
-    BASE_DIR + '/staticresources/',
-)
 ```
+
 Now create database:
+
 ```sh
 $ python manage.py syncdb
-```
-Gather static files:
-```sh
-$ python manage.py collectstatic
 ```
 
 Run
@@ -78,6 +89,7 @@ Run
 After a `$ python manage.py runserver`, you will able to visit `http://localhost:8000/`.
 
 If you want fill it, try:
+
 ```sh
 $ python manage.py loaddata data/sample.json
 ```
