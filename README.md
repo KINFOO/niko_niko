@@ -65,16 +65,6 @@ DATABASES = {
         'NAME': '/path/to/niko_niko/data/db.sq3', # Path, as we are using sqlite3.
     }
 }
-# Ensure admin is defined
-INSTALLED_APPS = (
-    # 'django.contrib' ya di ya da
-    # ...
-    # Uncomment the next line to enable the admin:
-    'django.contrib.admin', # Here you go
-    # ...
-    # Define the app we are coding
-    'niko'
-)
 ```
 
 Now create database:
@@ -86,7 +76,7 @@ $ python manage.py syncdb
 Run
 ---
 
-After a `$ python manage.py runserver`, you will able to visit `http://localhost:8000/`.
+After a `$ python manage.py runserver_plus`, you will able to visit `http://localhost:8000/`.
 
 If you want fill it, try:
 

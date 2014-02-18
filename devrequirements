@@ -1,3 +1,4 @@
 -r requirements
 SQLite3Database<0.3
-
+django-extensions
+Werkzeug
