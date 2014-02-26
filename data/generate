@@ -1,42 +1,44 @@
 #!/usr/bin/env python
-import json
 from slugify import slugify
+from datetime import datetime, timedelta
+import json
 import random
 
 objects = []
+now = datetime.now()
 
 # Poll are static so far
 polls = {
-  "2013-10-09T20:15:22Z": "Who likes the demo?",
-  "2013-10-09T20:14:22Z": "In the mood for Jorky?",
-  "2013-10-09T20:09:22Z": "How's DX doing?",
-  "2013-10-09T20:08:22Z": "Feeling good?",
-  "2013-10-09T20:07:22Z": "Like a s*x machine.",
+    now: "Who likes the demo?",
+    now-timedelta(days=1): "In the mood for Jorky?",
+    now-timedelta(days=2): "How's DX doing?",
+    now-timedelta(days=3): "Feeling good?",
+    now-timedelta(days=4): "Like a s*x machine.",
 }
 poll_count = 0
 for date, content in polls.iteritems():
-  poll_count = poll_count + 1
-  objects.append({
-    "pk": poll_count,
-    "model": "niko.poll",
-    "fields": {
-      "pub_date": date,
-      "name": content,
-      "slug": slugify( content )
-    }
-  })
+    poll_count = poll_count + 1
+    objects.append({
+      "pk": poll_count,
+      "model": "niko.poll",
+      "fields": {
+        "pub_date": str(date),
+        "name": content,
+        "slug": slugify( content )
+      }
+    })
 
 # Generating votes... I know, it sounds so illegal :s
 for i in range(1, 1000):
-  objects.append( {
-    "pk": i,
-    "model": "niko.vote",
-    "fields": {
-      "ip": "127.0.0."+str( random.randint(2, 254)),
-      "poll": random.randint(1, poll_count),
-      "pub_date": "2013-10-0{}T05:00:00Z".format(str(random.randint(1, 9))),
-      "mood": random.choice(["b", "o", "g"])
-    }
-  })
+    objects.append( {
+      "pk": i,
+      "model": "niko.vote",
+      "fields": {
+        "ip": "127.0.0."+str( random.randint(2, 254) ),
+        "poll": random.randint(1, poll_count),
+        "pub_date": str(now - timedelta(days=random.randint(1, 10))),
+        "mood": random.choice([0, 1, 2])
+      }
+    })
 
 print json.dumps(objects)
