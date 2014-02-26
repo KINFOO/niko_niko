@@ -124,6 +124,11 @@ def polls(request):
 def save(request, slug, mood):
     """Saves a vote to database."""
 
+    try:
+        mood = int(mood)
+    except ValueError:
+        messages.warning(request, 'This is not the way to vote.')
+
     a_poll = get_object_or_404(Poll, slug=slug)
 
     if not mood in [Vote.BAD, Vote.OK, Vote.GREAT]:

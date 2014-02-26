@@ -11,7 +11,7 @@ urlpatterns = patterns('',
     url(r'^polls/$', 'niko.views.polls'),
     url(r'^polls/(?P<slug>[\w-]+)/$', 'niko.views.poll', name='poll'),
     url(r'^polls/(?P<slug>[\w-]+)/vote/$', 'niko.views.vote', name='vote'),
-    url(r'^polls/(?P<slug>[\w-]+)/save/(?P<mood>\w+)$', 'niko.views.save',
+    url(r'^polls/(?P<slug>[\w-]+)/save/(?P<mood>\d{1})$', 'niko.views.save',
         name='save'),
     # url(r'^niko_niko/', include('niko_niko.foo.urls')),
 
