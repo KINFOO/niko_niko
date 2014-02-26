@@ -67,10 +67,11 @@ DATABASES = {
 }
 ```
 
-Now create database:
+Now create database and enable admin material:
 
 ```sh
 $ python manage.py syncdb
+$ python manage.py collectstatic
 ```
 
 Run
