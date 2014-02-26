@@ -1,6 +1,12 @@
 Niko-niko's Changelog
 =====================
 
+0.5
+---
+
+* Change in `models.Vote`: using short integers instead of chars for
+  performance.
+
 0.4.1
 -----
 
