@@ -5,7 +5,7 @@ class DateInterval(forms.Form):
     '''Allow to specify two consecutive dates.'''
     dateformats = ['%d/%m/%Y']
     startdate = forms.DateField(input_formats=dateformats,
-        label='Shown votes starting date')
+        label='Shown votes starting date', required=False)
     enddate = forms.DateField(input_formats=dateformats,
         label='Shown votes ending date', required=False)
 
@@ -14,7 +14,7 @@ class DateInterval(forms.Form):
         cleaned_data = super(DateInterval, self).clean()
         startdate = cleaned_data.get('startdate')
         enddate = cleaned_data.get('enddate')
-        if enddate and (startdate > enddate):
+        if startdate and enddate and (startdate > enddate):
             raise forms.ValidationError(
                 'End date should be more recent than start date.',
                 code='InvalidDateRange')

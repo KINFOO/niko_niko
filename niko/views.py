@@ -30,18 +30,27 @@ def poll(request, slug):
         dateform = DateInterval(request.POST)
         if dateform.is_valid():
 
-            # Select votes since a date
+            # Get dates
             startdate = dateform.cleaned_data['startdate']
-            context['startdate'] = startdate.strftime(DATE_FORMAT)
-            votes = Vote.objects.filter(poll__id=poll.id).filter(
-                pub_date__gte=startdate).order_by('-pub_date')
-
-            # Select votes before a date
             enddate = dateform.cleaned_data['enddate']
+
+            # Use them in next page
+            if startdate:
+                context['startdate'] = startdate.strftime(DATE_FORMAT)
             if enddate:
                 context['enddate'] = enddate.strftime(DATE_FORMAT)
-                votes = votes.filter(pub_date__lte=enddate).order_by(
-                    '-pub_date')
+
+            # Select votes using dates
+            if startdate and enddate:
+                votes = Vote.objects.filter(poll__id=poll.id).filter(
+                    pub_date__gte=startdate).filter(
+                    pub_date__lte=enddate).order_by('-pub_date')
+            elif startdate:
+                votes = Vote.objects.filter(poll__id=poll.id).filter(
+                    pub_date__gte=startdate).order_by('-pub_date')
+            elif enddate:
+                votes = Vote.objects.filter(poll__id=poll.id).filter(
+                    pub_date__lte=enddate).order_by('-pub_date')
         else:
             # Format form related errors)
             for fieldname, errors in dateform.errors.iteritems():
