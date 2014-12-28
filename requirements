@@ -1,4 +1,4 @@
-Django < 1.7
+Django < 1.8
 django-extensions
 Unidecode==0.04.14
 django-autoslug==1.7.1

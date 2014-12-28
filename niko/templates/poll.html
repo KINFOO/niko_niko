@@ -3,7 +3,7 @@
 {% block title %}{{ poll.name|title }}{% endblock %}
 
 {% block headers %}
-<link href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/css/datepicker.css"/>
+<link href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.1/css/datepicker.css"/>
 {% endblock %}
 
 {% block content %}
@@ -25,8 +25,8 @@
 		<div class="collapse navbar-collapse" id="nikonav">
 			<ul class="nav navbar-nav navbar-right">
 				<li><a href="{% url 'vote' poll.slug %}">Vote</a></li>
-				<li><a href="{% url 'poll' poll.slug %}"><i class="icon-refresh"></i></a></li>
-				<li><a href="{% url 'polls' %}" class="navbar-brand"><i class="icon-home"></i></a></li>
+				<li><a href="{% url 'poll' poll.slug %}"><i class="fa fa-refresh"></i></a></li>
+				<li><a href="{% url 'polls' %}" class="navbar-brand"><i class="fa fa-home"></i></a></li>
 			</ul>
 			<form action="{% url 'poll' poll.slug %}" method="post" class="navbar-form navbar-center" role="form">{% csrf_token %}
 				<div class="form-group">
@@ -56,9 +56,9 @@
 		{% endif %}
 		<div class="row">
 			<div class="moods col-md-4 text-center">
-				<p class="text-danger"><i class="icon-frown"> {{ bads_percentage|floatformat:1 }}%</i></p>
-				<p class="text-warning"><i class="icon-meh"> {{ oks_percentage|floatformat:1 }}%</i></p>
-				<p class="text-success"><i class="icon-smile"> {{ greats_percentage|floatformat:1 }}%</i></p>
+				<p class="text-danger"><i class="fa fa-frown-o"> {{ bads_percentage|floatformat:1 }}%</i></p>
+				<p class="text-warning"><i class="fa fa-meh-o"> {{ oks_percentage|floatformat:1 }}%</i></p>
+				<p class="text-success"><i class="fa fa-smile-o"> {{ greats_percentage|floatformat:1 }}%</i></p>
 			</div>
 			<div class="moods col-md-4 text-center">
 				<canvas id="bars" width="400" height="300"></canvas>
@@ -79,14 +79,14 @@
 				</h1>
 				{% for vote in votes %}
 					{% if Vote.GREAT == vote.mood %}
-						<span class="text-success vote-icon"><i class="icon-smile">&nbsp;</i></span>
+						<span class="text-success vote-icon"><i class="fa fa-smile-o">&nbsp;</i></span>
 					{% elif Vote.OK == vote.mood %}
-						<span class="text-warning vote-icon"><i class="icon-meh">&nbsp;</i></span>
+						<span class="text-warning vote-icon"><i class="fa fa-meh-o">&nbsp;</i></span>
 					{% elif Vote.BAD == vote.mood %}
-						<span class="text-danger vote-icon"><i class="icon-frown">&nbsp;</i></span>
+						<span class="text-danger vote-icon"><i class="fa fa-frown-o">&nbsp;</i></span>
 					{% endif %}
 				{% empty %}
-					<div class="col-md-12 alert alert-info text-center">No vote so far <i class="icon-smile"></i>.</div>
+					<div class="col-md-12 alert alert-info text-center">No vote so far <i class="fa fa-smile"></i>.</div>
 				{% endfor %}
 			</div>
 		</div>
