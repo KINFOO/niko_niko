@@ -16,12 +16,12 @@ MANAGERS = ADMINS
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
-        'NAME': BASE_DIR + '/data/db.sq3',    # Or path to database file if using sqlite3.
+        'NAME': BASE_DIR + '/data/db.sq3', # Or path to database file if using sqlite3.
         # The following settings are not used with sqlite3:
         'USER': '',
         'PASSWORD': '',
-        'HOST': '',                      # Empty for localhost through domain sockets or '127.0.0.1' for localhost through TCP.
-        'PORT': '',                      # Set to empty string for default.
+        'HOST': '', # Empty for localhost through domain sockets or '127.0.0.1' for localhost through TCP.
+        'PORT': '', # Set to empty string for default.
     }
 }
 
@@ -159,4 +159,6 @@ LOGGING = {
 
 settings_local_file = os.path.join(BASE_DIR, 'settings_local.py')
 if os.path.exists(settings_local_file):
-    execfile(settings_local_file)
+    with open(settings_local_file) as local_configuration:
+        code = compile(local_configuration.read(), local_configuration, "exec")
+        exec(code)

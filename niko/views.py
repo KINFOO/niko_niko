@@ -53,7 +53,7 @@ def poll(request, slug):
                     pub_date__lte=enddate).order_by('-pub_date')
         else:
             # Format form related errors)
-            for fieldname, errors in dateform.errors.iteritems():
+            for fieldname, errors in dateform.errors.items():
                 for error in errors:
                     if '__all__' == fieldname:
                         messages.warning(request, error)
@@ -72,7 +72,7 @@ def poll(request, slug):
     context['votes_count'] = votes_count
     votes_kinds = {'bads': Vote.BAD, 'oks': Vote.OK, 'greats': Vote.GREAT, }
     if votes_count > 0:
-        for varname, votetype in votes_kinds.iteritems():
+        for varname, votetype in votes_kinds.items():
             # Compute average safely
             count_key = varname + "_count"
             percentage_key = varname + "_percentage"
@@ -83,7 +83,7 @@ def poll(request, slug):
             else:
                 context[percentage_key] = 0
     else:
-        for varname, _ in votes_kinds.iteritems():
+        for varname, _ in votes_kinds.items():
             context[varname + "_count"] = 0
             context[varname + "_percentage"] = 0
 
@@ -101,7 +101,7 @@ def poll(request, slug):
     if startdate == enddate:
         context['linechart']['labels'] = [startdate]
         context['linechart']['values'] = {}
-        for varname, votetype in votes_kinds.iteritems():
+        for varname, votetype in votes_kinds.items():
             context['linechart']['values'][varname] = [votes.filter(
                 mood=votetype).count()]
     else:
@@ -115,7 +115,7 @@ def poll(request, slug):
         context['linechart']['labels'] = dates
         context['linechart']['values'] = {}
         for adate in dates:
-            for varname, votetype in votes_kinds.iteritems():
+            for varname, votetype in votes_kinds.items():
                 count = votes.filter(mood=votetype, pub_date__lte=adate).count()
                 if not varname in context['linechart']['values']:
                     context['linechart']['values'][varname] = []
