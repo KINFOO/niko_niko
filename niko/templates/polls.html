@@ -1,5 +1,5 @@
-{% extends "base.html" %}                                                       
-                                                                                
+{% extends "base.html" %}
+
 {% block content %}
 
 {% spaceless %}
@@ -19,6 +19,8 @@
 							<a href="{% url 'poll' poll.slug %}" title="{{ poll.name|escape }}">{{ poll.name|title }}</a>
 						</td>
 						<td class="text-right">
+							<a href="{% url 'qrcode' poll.slug %}" title="Poll link as QR code"><i class="fa fa-qrcode"></i></a>
+							&nbsp;
 							<a class="badge" href="{% url 'vote' poll.slug %}">Vote</a>
 							<span>&nbsp;{{ poll.pub_date|date:"d/m/Y H:i" }}</span>
 						</td>
@@ -35,4 +37,4 @@
 	</div>
 {% endspaceless %}
 
-{% endblock %}                                                                  
+{% endblock %}

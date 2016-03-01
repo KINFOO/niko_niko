@@ -1,6 +1,13 @@
 Niko-niko's Changelog
 =====================
 
+0.6
+---
+
+* Python 3
+* Allow to vote using __QR codes__.
+* Charts are back.
+
 0.5
 ---
 

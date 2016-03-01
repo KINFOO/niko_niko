@@ -6,7 +6,9 @@ The main idea is to have a web form available for one vote over three smileys in
 Requirements
 ------------
 
-You will need `pip`.
+Made with:
+* `pip` > 8.0
+* `python` > 3.5
 
 Set up
 ------
@@ -16,7 +18,7 @@ Set up
 You should [install virtualenvwrapper](http://virtualenvwrapper.readthedocs.org/en/latest/install.html). Then set up goes down to:
 
 ```sh
-$ mkvirtualenv niko -p /usr/bin/python2.7 -a /w/niko_niko -r devrequirements
+$ mkvirtualenv niko -p /usr/bin/python3 -a /w/niko_niko -r devrequirements
 $ workon niko
 ```
 
@@ -33,7 +35,9 @@ Edit `niko_niko/settings_local.py`, at the end, remove:
 ```python
 settings_local_file = os.path.join(BASE_DIR, 'settings_local.py')
 if os.path.exists(settings_local_file):
-    execfile(settings_local_file)
+    with open(settings_local_file) as local_configuration:
+        code = compile(local_configuration.read(), local_configuration, "exec")
+        exec(code)
 ```
 
 ### Production
@@ -46,7 +50,9 @@ Edit `niko_niko/settings.py`, at the end, remove:
 ```python
 settings_local_file = os.path.join(BASE_DIR, 'settings_local.py')
 if os.path.exists(settings_local_file):
-    execfile(settings_local_file)
+    with open(settings_local_file) as local_configuration:
+        code = compile(local_configuration.read(), local_configuration, "exec")
+        exec(code)
 ```
 
 ### For All
@@ -54,6 +60,8 @@ if os.path.exists(settings_local_file):
 Here are the useful settings:
 
 ```python
+# Base of links in QR codes :)
+ALLOWED_HOSTS = ['18.34.88.76:8000']
 # Set yourself as admin
 ADMINS = (
     ('Kevin KIN-FOO', 'ken@cap.com'),
@@ -77,10 +85,19 @@ $ python manage.py collectstatic
 Run
 ---
 
-After a `$ python manage.py runserver_plus`, you will able to visit `http://localhost:8000/`.
+After a `$ python manage.py runserver 0.0.0.0:8000`, you will able to visit `http://localhost:8000/`.
 
 If you want fill it, try:
 
 ```sh
 $ python manage.py loaddata data/sample.json
 ```
+
+Troubleshooting
+---------------
+
+### QR codes: Unable to connect
+
+Did you start application with: `$ python manage.py runserver 0.0.0.0:8000`?
+
+Because default `runserver` sub-command only works for `localhost`.

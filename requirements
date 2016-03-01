@@ -3,3 +3,4 @@ django-extensions
 Unidecode==0.04.14
 django-autoslug==1.7.1
 python-slugify==0.0.6
+qrcode < 5.3

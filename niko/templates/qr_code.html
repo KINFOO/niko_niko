@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block title %}{{ poll.name|title }}{% endblock %}
+
+{% block content %}
+
+{% spaceless %}
+	<div class="well">
+		<div class="container">
+			<h1>
+				<a href="{% url 'polls' %}"><i class="fa fa-chevron-left"></i></a>
+				{{ poll.name|title }}
+			</h1>
+		</div>
+	</div>
+	<div class="container">
+		<div class="row text-center">
+			<img src="{% url 'svg' poll.slug %}" alt="{{ poll.name|title }}" style="max-width:450px; width: 50%"/>
+		</div>
+	</div>
+{% endspaceless %}
+
+{% endblock %}

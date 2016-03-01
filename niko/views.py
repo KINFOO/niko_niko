@@ -1,8 +1,18 @@
+from django.conf import settings
 from django.contrib import messages
+from django.core.urlresolvers import reverse
 from django.db.models import Max, Min
+from django.http import HttpResponse
 from django.shortcuts import render, get_object_or_404
+from django.views import defaults
 
 import datetime
+import logging
+import os
+import qrcode
+import qrcode.image.svg
+import socket
+import tempfile
 
 from niko.models import Poll, Vote
 from niko.forms import DateInterval
@@ -10,6 +20,7 @@ from niko.forms import DateInterval
 # Should match date format used in forms.DateInterval
 DATE_FORMAT = '%d/%m/%Y'
 
+logger = logging.getLogger(__name__)
 
 def poll(request, slug):
     """Show details of a specific poll."""
@@ -161,12 +172,35 @@ def vote(request, slug):
     poll = get_object_or_404(Poll, slug=slug)
     return render(request, 'vote.html', {'poll': poll, 'Vote': Vote})
 
+def qr_code_page(request, slug):
+    poll = get_object_or_404(Poll, slug=slug)
+    return render(request, 'qr_code.html', {'poll': poll})
+
+def qr_code_image(request, slug):
+
+    # Generate SVG once a runtime
+    image_path = os.path.join(tempfile.gettempdir(), '{}.svg'.format(slug))
+    if not os.path.exists(image_path):
+        poll_url = accessible_url(request, reverse('vote', args=[slug]))
+        svg = qrcode.make(poll_url, image_factory=qrcode.image.svg.SvgPathImage)
+        svg.save(image_path)
+
+    # Render SVG
+    response = HttpResponse(content_type='image/svg+xml')
+    with open(image_path) as svg:
+        response.write(svg.read())
+    return response
 
 def handler404(request):
     return render(request, '404.html')
 
-
 # Utilities
+def accessible_url(request, url):
+    if not settings.ALLOWED_HOSTS:
+        logger.error('One ALLOWED_HOSTS is mandatory to create accessible QR code links')
+        server_error(request, template_name='500.html')
+    return 'http://{}{}'.format(settings.ALLOWED_HOSTS[0], url)
+
 def get_client_ip(request):
     x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
     if x_forwarded_for:
